@@ -1,24 +1,25 @@
 <?php
 
-# route "/"
+session_start();
+
+if (isset($_SESSION['results'])) {
+    $results = $_SESSION['results'];
+
+    $word = $results['word'];
+    $palindrome = $results['palindrome'];
+    $vowels = $results['vowels'];
+    $shift = $results['shift'];
+}
 
 
-// select random word
-
-// hard coded inputs - use random from course examples
-
-// palindrome inputs (inputWord is fake user input)
-$palindromeExamples = array("racecar", "Racecar", "racecar!","!racecar!","Hello World");
-$random_key = array_rand($palindromeExamples);
-$inputWord = $palindromeExamples[$random_key];
+$_SESSION['results'] = null;
 
 
-// sentence for vowel inputs (inputVowel is fake user input)
-$vowelExamples[] = "the quick brown fox jumps over the lazy dog";
-$vowelExamples[] = "Hll Wrld";
-$vowelExamples[] = "AeIoU";
-$random_key = array_rand($vowelExamples);
-$inputVowel = $vowelExamples[$random_key];
+require 'index-view.php';
+
+// $palindromeExamples = array("racecar", "Racecar", "racecar!","!racecar!","Hello World");
 
 
-require 'controllers/indexController.php';
+// $vowelExamples[] = "the quick brown fox jumps over the lazy dog";
+// $vowelExamples[] = "Hll Wrld";
+// $vowelExamples[] = "AeIoU";
