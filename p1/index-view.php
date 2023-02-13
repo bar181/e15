@@ -18,15 +18,12 @@
         <h2>Bradley Ross</h2>
 
         <div class="card col-6 mx-auto mt-5">
-
             <form method='POST' action='process.php' class="p-3">
                 <h2 class="py-2">Let's Play !</h2>
                 <div class="form-floating mb-3">
                     <input type='text' name='word' class="form-control" id='word' placeholder="Enter a String">
                     <label for='word'>Enter a String</label>
                 </div>
-
-
                 <button type='submit' class="btn btn-primary">Check answer</button>
             </form>
         </div>

@@ -2,23 +2,19 @@
 
 session_start();
 
-# design preference - objectives at top
-# functions below - can be refactored to helper directory
+# design preference - objectives at top followed by functions
 
-# session variables to update
+# evaluate variables based on user form input (call function for each)
 $word = $_POST['word'];
 $palindrome = isPalindrome($word);
 $vowels = countVowels($word);
 $shift = letterShift($word);
 
 
-
-// echo "<br> --- word " . $word;
-// echo "<br> --- palindrome " . $palindrome;
-// echo "<br> --- vowels " . $vowels;
-// echo "<br> --- shift " . $shift;
+# --------------- HELPER FUNCTIONS ---------------
 
 # return true if word is a palindrome
+# process -> loop through 50% of string, return false if 1st/last letter do not match
 # special -> ignore numbers and special characters
 # sources (see readme) -> regex, strtolower
 # testing -> "racecar!" => Yes; "Hello World" => No
@@ -40,6 +36,7 @@ function isPalindrome($inputWord): bool
 
 
 # return number of vowels in word
+# process -> loop through each letter and check if in array of vowels
 # special -> vowels: a,e,i,o,u; cASE inSensitive
 # testing -> "Hll Wrld" => 0; "AeIoU" => 5
 function countVowels($inputWord): int
@@ -58,6 +55,7 @@ function countVowels($inputWord): int
 
 
 # Shift each letter in a word +1 position in the alphabet
+# process -> loop through each letter and check if in array of vowels
 # special -> Capitalization retained; ignore special character
 # testing -> "foobar@1" => "gppcbs@1"; "aAb" => "bBc"
 function letterShift($inputWord): string
@@ -74,7 +72,11 @@ function letterShift($inputWord): string
 
 
 # Shifts a single letter forward in alphabet
+# process -> hard coded shift +1 in ASCII
+# future use case -> for Ceasar shift, $shift = a new input (e.g. $shift = 4)
+#       use modulo operator instead of magic numbers for edge cases
 # special -> Capitalization retained; ignore special character
+# edge cases -> Z - use magic numbers to revert to A
 # sources (see readme) ->chr, ord, regex
 # testing -> "a" => "b"; "Z" => "A
 function getShiftedLetter($letter): string
