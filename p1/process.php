@@ -105,4 +105,4 @@ $_SESSION['results'] = [
     ];
 
 
-header('Location: index.php');
+header('Location: /');
