@@ -8,17 +8,24 @@ class BookController extends Controller
 {
     public function index()
     {
-        # TODO: Query the database for all the books;
-        return 'Here are all the books...';
+        return view('books/index');
     }
 
     public function show($title)
     {
-        return 'Results for the book: '.$title;
+        $bookFound = true;
+
+        return view('books/show', [
+            'title' => $title,
+            'bookFound' => $bookFound
+        ]);
     }
 
     public function filter($category, $subcategory)
     {
-        return 'Results for the filter: '.$category . " " . $subcategory;
+        return view('books/filter', [
+            'category' => $category,
+            'subcategory' => $subcategory
+        ]);
     }
 }
