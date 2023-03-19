@@ -39,7 +39,7 @@ class PageController extends Controller
     {
         $request->validate([
              'title' => 'required|min:3|max:15',
-             'message' => 'required',
+             'message' => 'required|min:3',
              'imageType' => 'required',
              'terms' => 'required',
          ]);

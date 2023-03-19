@@ -40,11 +40,11 @@
     <div class="w-full pt-8 max-w-md mx-auto">
         <form method='POST' action='/' class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h2 class="text-xl text-center font-bold ">ADD A POSTCARD</h2>
-            <div class='text-sm  pb-5 '>* Required fields</div>
+            <div class='text-sm  pb-5 '>All fields required</div>
             {{ csrf_field() }}
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-                    * Postcard title
+                    Postcard title
                 </label>
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
