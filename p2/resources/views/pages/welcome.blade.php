@@ -13,7 +13,7 @@
                     <img class="w-full" src="{{ $postcard['image'] }}" alt="Postcard image">
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">{{ $postcard['title'] }}</div>
-                        <p class="text-gray-700 text-base">
+                        <p class="text-gray-700 text-base break-words">
                             {{ $postcard['message'] }}
                         </p>
                     </div>
@@ -26,7 +26,7 @@
                     <img class="w-full" src="{{ $newPostcard['image'] }}" alt="Postcard image">
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">{{ $newPostcard['title'] }}</div>
-                        <p class="text-gray-700 text-base">
+                        <p class="text-gray-700 text-base c">
                             {{ $newPostcard['message'] }}
                         </p>
                     </div>

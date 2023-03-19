@@ -33,12 +33,12 @@ class PageController extends Controller
 
 
     # route: POST('/')
-    # validate form - all fields required
+    # validate form - all fields required (csrf_field hidden)
     # redirects to add a new postcard
     public function create(Request $request)
     {
         $request->validate([
-             'title' => 'required|min:3',
+             'title' => 'required|min:3|max:15',
              'message' => 'required',
              'imageType' => 'required',
              'terms' => 'required',
@@ -50,7 +50,7 @@ class PageController extends Controller
         $newPostcard = [
             'title' => $formData['title'],
             'image' => self::getSrc($formData['imageType']),
-            'message' => $formData['title'],
+            'message' => $formData['message'],
         ];
 
         # Redirect back to the form with data/results stored in the session
