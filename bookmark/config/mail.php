@@ -2,6 +2,8 @@
 
 return [
 
+    'contact_email' => "support@bradross.me",
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

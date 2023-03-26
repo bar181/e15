@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\PracticeController;
 
 /**
  * Misc
@@ -29,6 +30,9 @@ Route::get('/books/{slug}', [BookController::class, 'show']);
 
 Route::get('/search', [BookController::class, 'search']);
 
+
+#practice
+Route::any('/practice/{n?}', [PracticeController::class, 'index']);
 
 /**
  * Lists
