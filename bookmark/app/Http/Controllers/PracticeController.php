@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Book;
 
 class PracticeController extends Controller
 {
@@ -20,6 +21,113 @@ class PracticeController extends Controller
         dump('DESCRIBE reviews;');
         dump(DB::select('DESCRIBE reviews;'));
     }
+
+     public function practice7()
+     {
+         # First get a book to delete
+         $book = Book::where('author', '=', 'F. Scott Fitzgerald')->first();
+
+         if (!$book) {
+             dump('Did not delete- Book not found.');
+         } else {
+             $book->delete();
+             dump('Deletion complete');
+         }
+
+         # Query for books by F. Scott Fitzgerald to confirm the above deletion worked as expected
+         # This should yield an empty array
+         dump(Book::where('author', '=', 'F. Scott Fitzgerald')->get()->toArray());
+     }
+
+
+     public function practice6()
+     {
+         # First get a book to update
+         $books = Book::where('author', '=', 'J.K. Rowling')->get();
+
+         if (!$books) {
+             dump("Book not found, can not update.");
+         } else {
+             # Change some properties
+
+             foreach ($books as $book) {
+                 $book->author = 'JK Rowling';
+
+
+                 # Save the changes
+                 $book->save();
+             }
+
+
+             dump('Update complete');
+         }
+
+         # Output books to confirm the above query worked as expected
+         dump(Book::orderBy('published_year')->get()->toArray());
+     }
+
+     public function practice5()
+     {
+         # First get a book to update
+         $book = Book::where('author', '=', 'F. Scott Fitzgerald')->first();
+
+         if (!$book) {
+             dump("Book not found, can not update.");
+         } else {
+             # Change some properties
+             $book->title = 'The Really Great Gatsby';
+             $book->published_year = '2025';
+
+             # Save the changes
+             $book->save();
+
+             dump('Update complete');
+         }
+
+         # Output books to confirm the above query worked as expected
+         dump(Book::orderBy('published_year')->get()->toArray());
+     }
+
+
+    public function practice4()
+    {
+        $book = new Book();
+        $books = $book->where('title', 'LIKE', '%Harry Potter%')->get();
+
+        if ($books->isEmpty()) {
+            dump('No matches found');
+        } else {
+            foreach ($books as $book) {
+                dump($book->title);
+            }
+        }
+    }
+
+    public function practice3()
+    {
+        # Instantiate a new Book Model object
+        $book = new Book();
+
+        # Set the properties
+        # Note how each property corresponds to a column in the table
+        $book->slug = 'the-martian';
+        $book->title = 'The Martian';
+        $book->author = 'Anthony Weir';
+        $book->published_year = 2011;
+        $book->cover_url = 'https://hes-bookmark.s3.amazonaws.com/the-martian.jpg';
+        $book->info_url = 'https://en.wikipedia.org/wiki/The_Martian_(Weir_novel)';
+        $book->purchase_url = 'https://www.barnesandnoble.com/w/the-martian-andy-weir/1114993828';
+        $book->description = 'The Martian is a 2011 science fiction novel written by Andy Weir. It was his debut novel under his own name. It was originally self-published in 2011; Crown Publishing purchased the rights and re-released it in 2014. The story follows an American astronaut, Mark Watney, as he becomes stranded alone on Mars in the year 2035 and must improvise in order to survive.';
+
+        # Invoke the Eloquent `save` method to generate a new row in the
+        # `books` table, with the above data
+        $book->save();
+
+        # Confirm results
+        dump('Added: ' . $book->title);
+        dump(Book::all()->toArray());
+    }
+
 
     public function practice2()
     {
@@ -66,7 +174,14 @@ class PracticeController extends Controller
             }
 
             # Load the view and pass it the array of methods
-            return view('practice')->with(['methods' => $methods]);
+            // return view('practice')->with(['methods' => $methods]);
+            return view('practice')->with([
+                'methods' => $methods,
+                'books' => Book::all(),
+                'fields' => [
+                    'id', 'updated_at', 'created_at', 'slug', 'title', 'author', 'published_year'
+                ]
+            ]);
         }
     }
 }

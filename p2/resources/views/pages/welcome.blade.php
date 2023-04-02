@@ -56,7 +56,7 @@
                 </label>
                 <textarea
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    name="message" placeholder="To Mom, Love Beadley" rows="5">{{ old('message') }}</textarea>
+                    name="message" placeholder="To Mom, Love Bradley" rows="5">{{ old('message') }}</textarea>
 
             </div>
             <div class="mb-4">
