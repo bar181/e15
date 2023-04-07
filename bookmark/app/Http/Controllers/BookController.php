@@ -65,26 +65,16 @@ class BookController extends Controller
             'searchType' => 'required'
         ]);
 
-        # If validation fails it will redirect back to `/`
 
         $bookData = file_get_contents(database_path('books.json'));
         $books = json_decode($bookData, true);
 
         $searchType = $request->input('searchType', 'title');
         $searchTerms = $request->input('searchTerms', '');
-        $searchResults = [];
 
-        foreach ($books as $slug => $book) {
-            if (strtolower($book[$searchType]) == strtolower($searchTerms)) {
-                $searchResults[$slug] = $book;
-            }
-        }
-
-        # Redirect back to the form with data/results stored in the session
-        # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
-        return redirect('/')->with([
-            'searchResults' => $searchResults
-        ])->withInput();
+        $books = Book::where($searchType, 'LIKE', '%' . $searchTerms . '%')
+         ->get();
+        return view('books/index', ['books' => $books]);
     }
 
     /**
@@ -129,9 +119,6 @@ class BookController extends Controller
             'book' => $book,
         ]);
     }
-
-
-
 
 
     /**
@@ -190,15 +177,5 @@ class BookController extends Controller
 
         $book->delete();
         return redirect('/books')->with(['flash-alert' => ' Book ' . $book['title'] . ' Deleted.']);
-    }
-
-
-    /**
-     * GET /books/filter/{category}/{subcategory}
-     * Filter method that was demonstrate working with multiple route parameters
-     */
-    public function filter($category, $subcategory)
-    {
-        return 'Show all books in these categories: ' . $category . ',' . $subcategory;
     }
 }
