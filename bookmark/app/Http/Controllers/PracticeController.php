@@ -22,6 +22,173 @@ class PracticeController extends Controller
         dump(DB::select('DESCRIBE reviews;'));
     }
 
+    public function practiceW10Q8()
+    {
+        $books = Book::all();
+        echo $books;
+    }
+
+    public function practiceW10Q7()
+    {
+        $books = Book::orderBy('id', 'desc')->get();
+        $book = $books->first();
+        dump($books);
+        dump($book);
+    }
+
+
+     public function practice9()
+     {
+         $results = Book::all();
+         dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains multiple Book objects
+
+         $results = Book::where('published_year', '>', 1990)->get();
+         dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains multiple Book objects
+
+         # Even if our query finds just 1 result, *get* still yields a Collection, it'll just be a Collection of 1 object:
+         $results = Book::where('title', '=', 'The Bell Jar')->get();
+         dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains 1 Book object
+
+         # Similarly, if our query does not find any results, *get* still yields a Collection, it’ll just be empty
+         $results = Book::where('author', '=', 'Amy Tan')->get();
+         dump($results); # Empty collection
+
+         # Even if we limit our query to 1 book, because we're using the *get* method, we will get a Collection in return
+         $results = Book::limit(1)->get();
+     }
+
+    public function practice8()
+    {
+        $results = Book::first();
+        dump($results); # Shows an object of type App\Models\Book
+
+        $results = Book::find(22);
+        dump($results); # Shows an object of type App\Models\Book
+    }
+
+
+     public function practiceQ3f()
+     {
+         $question = "Remove any/all books with an author name that includes the string Rowling (author should not appear in table in /practice):";
+         $books = Book::where('author', 'LIKE', '%Rowling%')->get();
+
+         if (!$books) {
+             dump("Rowling not found, can not delete.");
+         } else {
+             foreach ($books as $book) {
+                 $book->delete();
+                 dump('Deletion complete');
+             }
+         }
+
+         # Check results
+         dump($question);
+         $books = Book::where('author', 'LIKE', '%Rowling%')->get()->toArray();
+         if (!$books) {
+             dump("SUCCESS NO Rowling");
+         } else {
+             dump("FAIL Rowling still exists");
+         }
+     }
+
+    public function practiceQ3e()
+    {
+        $question = "J.K. Rowling and update the author name to be JK Rowling:";
+
+        # copy/paste from lecture notes
+        $books = Book::where('author', '=', 'J.K. Rowling')->get();
+
+        if (!$books) {
+            dump("Book not found, can not update.");
+        } else {
+            # Change some properties
+            foreach ($books as $book) {
+                $book->author = 'JK Rowling';
+                $book->save();
+            }
+
+            dump('Update complete');
+        }
+
+        # New works to check if successful
+        dump($question);
+
+        $books = Book::where('author', '=', 'J.K. Rowling')->get()->toArray();
+        if (!$books) {
+            dump('SUCCESS NO J.K. Rowling.');
+        } else {
+            dump('FAILED FOUND J.K. Rowling.');
+        }
+
+        $books = Book::where('author', '=', 'JK Rowling')->get()->toArray();
+        if (!$books) {
+            dump('FAILED NO  JK Rowling.');
+        } else {
+            dump('SUCCESS FOUND JK Rowling.');
+        }
+    }
+
+    public function practiceQ3d()
+    {
+        $question = "books in descending order according to published year :";
+        $books = Book::orderByDesc('published_year')->get()->toArray();
+
+
+        if (!$books) {
+            dump('Assignment failed.');
+        } else {
+            foreach ($books as $book) {
+                dump($question . " " . $book['id'] . " " . $book['title'] . " " . $book['published_year']);
+            }
+        }
+    }
+
+    public function practiceQ3c()
+    {
+        $question = "all the books in alphabetical order by title :";
+        $books = Book::orderBy('title')->get()->toArray();
+
+
+        if (!$books) {
+            dump('Assignment failed.');
+        } else {
+            foreach ($books as $book) {
+                dump($question . " " . $book['id'] . " " . $book['title']);
+            }
+        }
+    }
+
+    public function practiceQ3b()
+    {
+        $question = "books published after 1950 :";
+        $books = Book::where('published_year', '>', 1950)->get()->toArray();
+
+
+        if (!$books) {
+            dump('Assignment failed.');
+        } else {
+            foreach ($books as $book) {
+                dump($question . " " . $book['id'] . " " . $book['title']);
+            }
+        }
+    }
+
+    public function practiceQ3a()
+    {
+        $question = "Last 2 books :";
+        $books = Book::orderByDesc('id')->take(2)->get();
+
+
+        if (!$books) {
+            dump('Assignment failed.');
+        } else {
+            foreach ($books as $book) {
+                dump($question . " " . $book['id'] . " " . $book['title']);
+            }
+        }
+    }
+
+
      public function practice7()
      {
          # First get a book to delete

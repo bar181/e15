@@ -15,8 +15,8 @@
         <p>No books have been added yet...</p>
     @else
         <div id='books'>
-            @foreach ($books as $slug => $book)
-                <a class='book' href='/books/{{ $slug }}'>
+            @foreach ($books as $book)
+                <a class='book' href='/books/{{ $book['slug'] }}'>
                     <h3>{{ $book['title'] }}</h3>
                     <img class='cover' src='{{ $book['cover_url'] }}'>
                 </a>
