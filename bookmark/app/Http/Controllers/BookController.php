@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\Book;
+use App\Models\Author;
 
 class BookController extends Controller
 {
@@ -14,7 +15,14 @@ class BookController extends Controller
     */
     public function create(Request $request)
     {
-        return view('books/create');
+
+        # Get data for authors in alphabetical order by last name
+        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
+
+        return view('books/create', [
+            'authors' => $authors
+        ]);
+
     }
 
     /**
@@ -30,7 +38,7 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:books,slug',
-            'author' => 'required|max:255',
+            'author_id' => 'required',
             'published_year' => 'required|digits:4',
             'cover_url' => 'required|url',
             'info_url' => 'required|url',
@@ -43,7 +51,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->slug = $request->slug;
-        $book->author = $request->author;
+        $book->author_id = $request->author_id;
         $book->published_year = $request->published_year;
         $book->cover_url = $request->cover_url;
         $book->info_url = $request->info_url;
@@ -115,8 +123,13 @@ class BookController extends Controller
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);
         }
 
+        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
+
+
+
         return view('books/edit', [
             'book' => $book,
+            'authors' => $authors
         ]);
     }
 
@@ -126,23 +139,23 @@ class BookController extends Controller
     */
     public function update(Request $request, $slug)
     {
+
         $book = Book::where('slug', '=', $slug)->first();
 
         $request->validate([
-           'title' => 'required',
-        'slug' => 'required|unique:books,slug,' . $book->id . '|alpha_dash',
-        'author' => 'required',
-        'published_year' => 'required|digits:4',
-        'cover_url' => 'url',
-        'info_url' => 'url',
-        'purchase_url' => 'required|url',
-        'description' => 'required|min:255'
+            'title' => 'required',
+            'slug' => 'required|unique:books,slug,' . $book->id . '|alpha_dash',
+            'author_id' => 'required',
+            'published_year' => 'required|digits:4',
+            'cover_url' => 'url',
+            'info_url' => 'url',
+            'purchase_url' => 'required|url',
+            'description' => 'required|min:10'
         ]);
-
 
         $book->title = $request->title;
         $book->slug = $request->slug;
-        $book->author = $request->author;
+        $book->author_id = $request->author_id;
         $book->published_year = $request->published_year;
         $book->cover_url = $request->cover_url;
         $book->info_url = $request->info_url;
@@ -150,13 +163,18 @@ class BookController extends Controller
         $book->description = $request->description;
         $book->save();
 
-
         return redirect('/books/'.$slug.'/edit')->with(['flash-alert' => 'Your changes were saved.']);
+
     }
 
     public function confirm_delete(Request $request, $slug)
     {
         $book = Book::where('slug', '=', $slug)->first();
+
+        if (!$book) {
+            return redirect('/books')->with(['flash-alert' => 'Book not found.']);
+        }
+
 
         return view('books/delete', [
             'book' => $book,
@@ -167,9 +185,11 @@ class BookController extends Controller
     help source:
     https://stackoverflow.com/questions/46098806/laravel-delete-button-with-html-form
     */
-    public function delete(Request $request, $slug)
+    public function destroy($slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        // $book = Book::where('slug', '=', $slug)->first();
+        $book = Book::findBySlug($slug);
+
 
         if (!$book) {
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);

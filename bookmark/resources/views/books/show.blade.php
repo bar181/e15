@@ -5,10 +5,15 @@
 @endsection
 
 @section('content')
+
     @if (!$book)
         Book not found. <a href='/books'>Check out the other books in our library...</a>
     @else
         <img class='cover' src='{{ $book->cover_url }}' alt='Cover photo for {{ $book->title }}'>
+
+        @if ($book->author)
+            <p>By {{ $book->author->first_name . ' ' . $book->author->last_name }}</p>
+        @endif
 
         <h1>{{ $book->title }}</h1>
 
@@ -19,6 +24,10 @@
             <a href='{{ $book->info_url }}'>Learn more...</a>
         </p>
 
-        <a href='/books/{{ $book->slug }}/edit'>Edit this book</a>
+        <ul class='bookActions'>
+            <li><a href='/books/{{ $book->slug }}/edit'><i class="fa fa-edit"></i> Edit</a>
+            <li><a href='/books/{{ $book->slug }}/delete'><i class="fa fa-trash"></i> Delete</a>
+        </ul>
     @endif
+
 @endsection
