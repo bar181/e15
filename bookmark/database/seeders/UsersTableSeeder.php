@@ -21,6 +21,12 @@ class UsersTableSeeder extends Seeder
         # Note the use of the `updateOrCreate` Eloquent method
         # This is useful here because the email for each user has to be unique
         $user = User::updateOrCreate(
+            ['email' => 'bar181@yahoo.com', 'name' => 'Brad Harvard'],
+            ['password' => Hash::make('asdfasdf')
+                    ]
+        );
+
+        $user = User::updateOrCreate(
             ['email' => 'jill@harvard.edu', 'name' => 'Jill Harvard'],
             ['password' => Hash::make('asdfasdf')
             ]
@@ -32,11 +38,7 @@ class UsersTableSeeder extends Seeder
             ]
         );
 
-        $user = User::updateOrCreate(
-            ['email' => 'bar181@yahoo.com', 'name' => 'Brad Harvard'],
-            ['password' => Hash::make('asdfasdf')
-                    ]
-        );
+
 
 
     }

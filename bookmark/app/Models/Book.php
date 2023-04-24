@@ -9,6 +9,13 @@ class Book extends Model
 {
     use HasFactory;
 
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User')
+            ->withTimestamps() # Must be added to have Eloquent update the created_at/updated_at columns in a pibot table
+            ->withPivot('notes'); # Must also specify any other fields that should be included when fetching this relationship
+    }
+
 
     public function author()
     {
@@ -17,21 +24,21 @@ class Book extends Model
         return $this->belongsTo('App\Models\Author');
     }
 
-     /**
+        /**
      *
      */
-     public static function findBySlug($slug)
-     {
-         return self::where('slug', '=', $slug)->first();
-     }
+    public static function findBySlug($slug)
+    {
+        return self::where('slug', '=', $slug)->first();
+    }
 
-     /**
-      * Hypotehtical method to contrast the use of static vs. not
-      */
-     public function isModern()
-     {
-         return $this->published_year > 2000;
-     }
+    /**
+     * Hypotehtical method to contrast the use of static vs. not
+    */
+    public function isModern()
+    {
+        return $this->published_year > 2000;
+    }
 
 
 }

@@ -15,14 +15,12 @@ class BookController extends Controller
     */
     public function create(Request $request)
     {
-
         # Get data for authors in alphabetical order by last name
         $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
 
         return view('books/create', [
             'authors' => $authors
         ]);
-
     }
 
     /**
@@ -43,11 +41,12 @@ class BookController extends Controller
             'cover_url' => 'required|url',
             'info_url' => 'required|url',
             'purchase_url' => 'required|url',
-            'description' => 'required|min:20'
+            'description' => 'required|min:100'
         ]);
 
         # Note: If validation fails, it will automatically redirect the visitor back to the form page
         # and none of the code that follows will execute.
+
         $book = new Book();
         $book->title = $request->title;
         $book->slug = $request->slug;
@@ -73,16 +72,20 @@ class BookController extends Controller
             'searchType' => 'required'
         ]);
 
+        # If validation fails it will redirect back to `/`
 
-        $bookData = file_get_contents(database_path('books.json'));
-        $books = json_decode($bookData, true);
-
+        # Get form data
         $searchType = $request->input('searchType', 'title');
         $searchTerms = $request->input('searchTerms', '');
 
-        $books = Book::where($searchType, 'LIKE', '%' . $searchTerms . '%')
-         ->get();
-        return view('books/index', ['books' => $books]);
+        # Do the search
+        $searchResults = Book::where($searchType, 'LIKE', '%' . $searchTerms . '%')->get();
+
+        # Redirect back to the form with data/results stored in the session
+        # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
+        return redirect('/')->with([
+            'searchResults' => $searchResults
+        ])->withInput();
     }
 
     /**
@@ -92,27 +95,34 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::orderBy('title', 'ASC')->get();
-        # can add other collection methods after the query
-        $books = $books->sort();
 
+        //$newBooks = Book::orderBy('id', 'DESC')->limit(3)->get();
 
-        return view('books/index', ['books' => $books]);
+        $newBooks = $books->sortByDesc('id')->take(3);
+
+        return view('books/index', [
+            'books' => $books,
+            'newBooks' => $newBooks
+        ]);
     }
 
     /**
      * GET /books/{slug}
      * Show an individual book searching by slug
      */
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $book = Book::where('slug', '=', $slug)->first();
 
+        $onList = $book->users()->where('user_id', $request->user()->id)->count() >= 1;
+
         return view('books/show', [
             'book' => $book,
+            'onList' => $onList
         ]);
     }
 
-     /**
+    /**
     * GET /books/{slug}/edit
     */
     public function edit(Request $request, $slug)
@@ -123,23 +133,16 @@ class BookController extends Controller
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);
         }
 
-        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
-
-
-
         return view('books/edit', [
             'book' => $book,
-            'authors' => $authors
         ]);
     }
-
 
     /**
     * PUT /books
     */
     public function update(Request $request, $slug)
     {
-
         $book = Book::where('slug', '=', $slug)->first();
 
         $request->validate([
@@ -150,7 +153,7 @@ class BookController extends Controller
             'cover_url' => 'url',
             'info_url' => 'url',
             'purchase_url' => 'required|url',
-            'description' => 'required|min:10'
+            'description' => 'required|min:255'
         ]);
 
         $book->title = $request->title;
@@ -164,38 +167,46 @@ class BookController extends Controller
         $book->save();
 
         return redirect('/books/'.$slug.'/edit')->with(['flash-alert' => 'Your changes were saved.']);
-
     }
 
-    public function confirm_delete(Request $request, $slug)
+     /**
+    * Asks user to confirm they want to delete the book
+    * GET /books/{slug}/delete
+    */
+    public function delete($slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $book = Book::findBySlug($slug);
 
         if (!$book) {
-            return redirect('/books')->with(['flash-alert' => 'Book not found.']);
+            return redirect('/books')->with([
+                'flash-alert' => 'Book not found'
+            ]);
         }
 
-
-        return view('books/delete', [
-            'book' => $book,
-        ]);
+        return view('books/delete', ['book' => $book]);
     }
 
-    /*
-    help source:
-    https://stackoverflow.com/questions/46098806/laravel-delete-button-with-html-form
+    /**
+    * Deletes the book
+    * DELETE /books/{slug}/delete
     */
     public function destroy($slug)
     {
-        // $book = Book::where('slug', '=', $slug)->first();
         $book = Book::findBySlug($slug);
 
-
-        if (!$book) {
-            return redirect('/books')->with(['flash-alert' => 'Book not found.']);
-        }
-
         $book->delete();
-        return redirect('/books')->with(['flash-alert' => ' Book ' . $book['title'] . ' Deleted.']);
+
+        return redirect('/books')->with([
+            'flash-alert' => '“' . $book->title . '” was removed.'
+        ]);
+    }
+
+    /**
+     * GET /books/filter/{category}/{subcategory}
+     * Filter method that was demonstrate working with multiple route parameters
+     */
+    public function filter($category, $subcategory)
+    {
+        return 'Show all books in these categories: ' . $category . ',' . $subcategory;
     }
 }

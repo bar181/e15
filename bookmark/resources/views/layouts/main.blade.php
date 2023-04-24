@@ -12,18 +12,19 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
     <link href='/css/bookmark.css' rel='stylesheet'>
 
     @yield('head')
 </head>
 
 <body>
+
     @if (session('flash-alert'))
         <div class='flash-alert'>
             {{ session('flash-alert') }}
         </div>
     @endif
+
     <header>
         <a href='/'><img src='/images/bookmark-logo@2x.png' id='logo' alt='bookmark Logo'></a>
 
@@ -34,7 +35,6 @@
                 @if (Auth::user())
                     <li><a href='/books'>All Books</a></li>
                     <li><a href='/books/create'>Add a Book</a></li>
-                    <li><a href='/author/create'>Add an Author</a></li>
                     <li><a href='/list'>Your list</a></li>
                 @endif
 
@@ -46,7 +46,8 @@
                     @else
                         <form method='POST' id='logout' action='/logout'>
                             {{ csrf_field() }}
-                            <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
+                            <a href='#' test='logout-button'
+                                onClick='document.getElementById("logout").submit();'>Logout</a>
                         </form>
                     @endif
                 </li>
@@ -59,7 +60,8 @@
     </section>
 
     <footer>
-        &copy; Bookmark, Inc. {{ config('mail.contact_email') }}< </footer>
+        &copy; Bookmark, Inc. {{ config('mail.contact_email') }}
+    </footer>
 
 </body>
 
