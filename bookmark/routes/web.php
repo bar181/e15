@@ -70,8 +70,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/list/{slug}/save', [ListController::class, 'save']);
     Route::put('/list/{slug}/update', [ListController::class, 'update']);
     Route::delete('/list/{slug}/destroy', [ListController::class, 'destroy']);
-    Route::get('/list/{slug}/delete', [ListController::class, 'destroy']);
-
 
 
     /**

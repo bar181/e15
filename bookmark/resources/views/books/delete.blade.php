@@ -1,20 +1,25 @@
 @extends('layouts/main')
 
+@section('head')
+    <link href='/css/books/delete.css' rel='stylesheet'>
+@endsection
+
 @section('title')
-    Confirm delete book {{ $book->title }}
+    Confirm deletion: {{ $book->title }}
 @endsection
 
 @section('content')
-    <h1>Delete</h1>
-    <h2>{{ $book->title }}</h2>
+    <h1>Confirm deletion</h1>
 
-    <form action='/books/'>
-        <button type='submit' class='btn btn-primary'>Cancel</button>
-    </form>
+    <p>Are you sure you want to delete <strong>{{ $book->title }}</strong>?</p>
 
     <form method='POST' action='/books/{{ $book->slug }}'>
-        <button type='submit' class='btn btn-danger'>Yes Delete Book</button>
-        {{ csrf_field() }}
         {{ method_field('delete') }}
+        {{ csrf_field() }}
+        <button type='submit' test='confirm-delete-button' class='btn btn-danger btn-small'>Yes, delete it!</button>
     </form>
+
+    <p class='cancel'>
+        <a href='/books/{{ $book->slug }}'>No, I changed my mind.</a>
+    </p>
 @endsection

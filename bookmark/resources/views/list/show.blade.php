@@ -11,7 +11,7 @@
 @section('content')
 
     @if ($books->count() == 0)
-        <p>You have not added any books to your list yet.</p>
+        <p test='no-books-message'>You have not added any books to your list yet.</p>
         <p><a href='/books'>Find books to add in our library...</a></p>
     @else
         @foreach ($books as $book)
@@ -30,14 +30,16 @@
                 <form method='POST' action='/list/{{ $book->slug }}/update'>
                     {{ csrf_field() }}
                     {{ method_field('put') }}
-                    <textarea class='notes' name='notes' id='notes'>{{ $book->pivot->notes }}</textarea>
-                    <input type='submit' class='btn btn-primary' value='Update notes'>
+                    <textarea class='notes' name='notes' test='{{ $book->slug }}-notes-textarea'>{{ $book->pivot->notes }}</textarea>
+                    <button type='submit' class='btn btn-primary' test='{{ $book->slug }}-update-button'>Update
+                        notes</button>
                 </form>
 
                 <p class='added'>
                     Added {{ $book->pivot->created_at->diffForHumans() }}
                 </p>
-                <a href='/list/{{ $book->slug }}/delete'><i class='fa fa-minus-circle'></i> Remove from your list</a>
+
+                @include('includes/remove-from-list')
             </div>
         @endforeach
     @endif
