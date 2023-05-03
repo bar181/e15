@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\BarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,23 +18,17 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-
-Route::get('/', function () {
-    # Eventually we’ll want to return a view with our customized home page.
-    # For now, we’ll just return a simple string
+Route::get('/', [PageController::class, 'welcome']);
 
 
-    dump('DESCRIBE p3 database;');
 
-    $tables = DB::select('SHOW TABLES');
-    if ($tables) {
-        foreach ($tables as $table) {
-            dump($table);
-        }
-    } else {
-        dump('No Tables yet');
-    }
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/search', [BarController::class, 'search']);
+    Route::get('/bars/create', [BarController::class, 'create']);
+    Route::post('/bars', [BarController::class, 'store']);
+
+    Route::get('/bars/{slug}', [BarController::class, 'show']);
 
 
-    return '<h1>My Project !</h1>';
+
 });

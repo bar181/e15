@@ -1,0 +1,122 @@
+[
+    {
+        "var_code": "Families",
+        "name": "Families",
+        "src": "https://cdn.midjourney.com/321c24fa-8fbd-4136-91b6-ccc7176713c8/grid_0.png"
+    },
+    {
+        "var_code": "Couples",
+        "name": "Couples",
+        "src": "https://cdn.midjourney.com/b20850f5-c616-4408-9697-33ff8c08e26c/grid_0.png"
+    },
+    {
+        "var_code": "Singles",
+        "name": "Singles",
+        "src": "https://cdn.midjourney.com/dd7a3be2-71e3-4469-8ce2-807011e132d9/grid_0.png"
+    },
+    {
+        "var_code": "Cute",
+        "name": "Cute",
+        "src": "https://cdn.midjourney.com/3c70fb7d-3356-4acb-b19b-1b917decc2ab/grid_0.png"
+    },
+    {
+        "var_code": "Animals",
+        "name": "Animals",
+        "src": "https://cdn.midjourney.com/a14a3588-b866-495c-b272-96ecad986ef5/grid_0.png"
+    },
+    {
+        "var_code": "Workplace",
+        "name": "Work place",
+        "src": "https://cdn.midjourney.com/daefb24f-bdbb-4859-bc27-7a0dea17f030/grid_0.png"
+    },
+    {
+        "var_code": "Emotional",
+        "name": "Emotional",
+        "src": "https://cdn.midjourney.com/b758a576-b21f-4fad-940d-71a0fa77fd93/0_1.png"
+    },
+    {
+        "var_code": "Candid",
+        "name": "Candid",
+        "src": "https://cdn.midjourney.com/41c1b5e9-ec8f-4b69-927d-04ecb6f2a6ae/0_2.png"
+    },
+    {
+        "var_code": "Attractive",
+        "name": "Attractive",
+        "src": "https://cdn.midjourney.com/1d59e116-5650-41ef-ae20-acec36c46e00/0_1.png"
+    },
+    {
+        "var_code": "Historic",
+        "name": "Fake Historic",
+        "src": "https://cdn.midjourney.com/ee82faaf-dd99-45d4-bd9a-e89f86318142/0_0.png"
+    },
+    {
+        "var_code": "Selfie",
+        "name": "Selfie",
+        "src": "https://cdn.midjourney.com/d32453fe-bb87-453f-a597-f2a55e1d460f/0_0.png"
+    },
+    {
+        "var_code": "Apps",
+        "name": "Apps",
+        "src": "https://cdn.midjourney.com/754e0f8d-1d1a-4eda-93c7-7c6f2dd9563e/grid_0.png"
+    },
+    {
+        "var_code": "Concepts",
+        "name": "Concepts",
+        "src": "https://cdn.midjourney.com/80b54a3a-1c6e-473b-a01d-2aa41a3cef9c/grid_0.png"
+    },
+    {
+        "var_code": "Locations",
+        "name": "Locations",
+        "src": "https://cdn.midjourney.com/ad08cfcc-f9a4-42b3-b30d-62dd31b30324/0_0.png"
+    },
+    {
+        "var_code": "Smart",
+        "name": "Smart",
+        "src": "https://cdn.midjourney.com/d8da1e19-16e0-4212-bdca-517b93bd6880/grid_0.png"
+    },
+    {
+        "var_code": "Weird",
+        "name": "Weird",
+        "src": "https://cdn.midjourney.com/95cda086-6669-40e3-9cec-89f11ebb8556/grid_0.png"
+    },
+    {
+        "var_code": "Activities",
+        "name": "Activities",
+        "src": "https://cdn.midjourney.com/8109b51b-37d8-4465-945d-8fb7d6c36652/grid_0.png"
+    },
+    {
+        "var_code": "Puzzle",
+        "name": "Puzzle",
+        "src": "https://cdn.midjourney.com/86258201-d342-49ae-8fad-c22635bb28e8/grid_0.png"
+    },
+    {
+        "var_code": "Cartoon",
+        "name": "Cartoon",
+        "src": "https://cdn.midjourney.com/6732d0f6-2a7c-4fe4-bac0-a5ea23e26321/grid_0.png"
+    },
+    {
+        "var_code": "CartoonPeople",
+        "name": "Cartoon People",
+        "src": "https://cdn.midjourney.com/b31ab321-a289-453a-9173-df6dba3be127/0_2.png"
+    },
+    {
+        "var_code": "Artistic",
+        "name": "Artistic",
+        "src": "https://cdn.midjourney.com/4bd3b8af-81e3-4ff5-842e-63c1ead66a56/0_0.png"
+    },
+    {
+        "var_code": "Scenic",
+        "name": "Scenic",
+        "src": "https://cdn.midjourney.com/8600a8cb-d02b-4782-a5e1-11bffb838592/grid_0.png"
+    },
+    {
+        "var_code": "Watercolor",
+        "name": "Watercolor",
+        "src": "https://cdn.midjourney.com/154b70f2-b47a-40a9-bcbd-6e297f974511/0_1.png"
+    },
+    {
+        "var_code": "PopCulture",
+        "name": "PopCulture",
+        "src": "https://cdn.midjourney.com/b9d28d4b-657e-4716-b1ad-37ba60773c25/grid_0.png"
+    }
+]
