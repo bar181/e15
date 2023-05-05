@@ -22,7 +22,7 @@
                 <span class="px-5"> | </span>
                 <a href='/' test='nav-home-link'
                     class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Home </a>
-                <a href='/bars/' test='nav-create-link'
+                <a href='/bars/' test='nav-mybars-link'
                     class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">My Work </a>
                 <a href='/bars/create' test='nav-create-link'
                     class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Create </a>
@@ -31,7 +31,7 @@
 
         <div>
             @if (!Auth::user())
-                <a href='/login' test='login-link'
+                <a href='/login' test='nav-login-link'
                     class="inline-block text-sm px-4 py-2  text-white mt-4 lg:mt-0">Login</a>
             @else
                 <form method='POST' id='logout' action='/logout'>

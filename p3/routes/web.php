@@ -20,17 +20,23 @@ use App\Http\Controllers\BarController;
 
 Route::get('/', [PageController::class, 'welcome']);
 
-
-
+# auth users only
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/search', [BarController::class, 'search']);
-    Route::get('/bars/create/{page?}', [BarController::class, 'create']);
-    Route::post('/bars', [BarController::class, 'store']);
 
     Route::get('/bars/', [BarController::class, 'index']);
-    Route::get('/bars/{slug}', [BarController::class, 'show']);
-    Route::get('/bars/{slug}/edit', [BarController::class, 'edit']);
-    Route::put('/bars/{slug}', [BarController::class, 'update']);
+    Route::post('/bars', [BarController::class, 'store']);
+    Route::get('/bars/create/{page?}', [BarController::class, 'create']);
 
+    # user is author - see readme for source
+    Route::group(['middleware' => ['auth', 'auth.author']], function () {
+
+        Route::get('/bars/{slug}/slide/edit', [SlideController::class, 'edit']);
+        Route::get('/bars/{slug}/edit', [BarController::class, 'edit']);
+        Route::put('/bars/{slug}', [BarController::class, 'update']);
+    });
 
 });
+
+# available to all
+Route::get('/bars/{slug}', [BarController::class, 'show']);
+Route::get('/search', [PageController::class, 'search']);

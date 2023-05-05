@@ -183,13 +183,7 @@ return [
 
      'attributes' => [
         'slug' => 'Short URL',
-
-        'title1' => 'Page 1 Title',
-        'image1' => 'Page 1 Image',
-        'content1' => 'Page 1 Content',
-        'title2' => 'Page 2 Title',
-        'content2' => 'Page 2 Content',
-        'image2' => 'Page 2 Image'
+        'image_id' => 'Select an image',
     ],
 
 ];

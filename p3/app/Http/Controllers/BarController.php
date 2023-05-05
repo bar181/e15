@@ -48,7 +48,7 @@ class BarController extends Controller
             'name' => 'required|max:255',
             'slug' => 'required|unique:bars,slug,alpha_dash',
             'topic' => 'required|max:255',
-            'image1' => 'required',
+            'image_id' => 'required',
         ]);
 
 
@@ -92,6 +92,7 @@ class BarController extends Controller
      */
     public function show(Request $request, $slug)
     {
+
         $bar = Bar::findBySlug($slug);
 
         # Bar does not exist
@@ -104,8 +105,8 @@ class BarController extends Controller
         $isEdit = ($user && $user->id == $bar->user_id);
 
         # bar not shareable (author can always view)
-        # remember $bar->image->src shows the image src
-        if (!$isEdit && $bar->share) {
+        if (!$isEdit && !$bar->share) {
+            # note or redirect to login (automatically) if not signed in
             return redirect('/bars')->with(['flash-alert' => 'BAR not shareable.  Ask author to update']);
         }
 
@@ -118,9 +119,12 @@ class BarController extends Controller
      /**
     * GET /bar/{slug}/edit
     * show edit form
+    * AuthorMiddleware (user = author)
     */
     public function edit(Request $request, $slug)
     {
+        dd('edit 125');
+
         $bar = Bar::findBySlug($slug);
         $user = $request->user();
 
@@ -152,6 +156,7 @@ class BarController extends Controller
                'name' => 'required|max:255',
                'slug' => 'required|unique:bars,slug,' . $bar->id . '|alpha_dash',
                'topic' => 'required|max:255',
+               'image_id' => 'required',
            ]);
 
         $action = new UpdateBar($bar, (object) $request->all());
@@ -160,28 +165,5 @@ class BarController extends Controller
         return redirect($redirectUrl)->with(['flash-alert' => 'Your changes were saved']);
     }
 
-    public function search(Request $request)
-    {
-        # no validate required (want to allow no terms = get everything)
-        # Get form data
-        $searchType = $request->input('searchType', 'name');
-        $searchTerms = $request->input('searchTerms', '');
-
-        # Do the search
-        if($searchTerms) {
-            $searchResults = Bar::where($searchType, 'LIKE', '%' . $searchTerms . '%')->get();
-            $searchDetails = "(search: " . $searchTerms . ")";
-
-
-        }
-
-
-        # Redirect back to the form with data/results stored in the session
-        # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
-        return redirect('/')->with([
-            'searchResults' => $searchResults ?? null,
-            'searchDetails' => $searchDetails ?? null
-        ])->withInput();
-    }
 
 }

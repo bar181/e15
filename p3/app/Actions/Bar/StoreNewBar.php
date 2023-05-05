@@ -18,7 +18,7 @@ class StoreNewBar
         $bar->name = $newBarData->name;
         $bar->slug = $newBarData->slug;
         $bar->topic = $newBarData->topic;
-        $bar->image1_id = $newBarData->image1;
+        $bar->image_id = $newBarData->image_id;
         $bar->share = isset($newBarData->share) ? 1 : 0;
         $bar->save();
 

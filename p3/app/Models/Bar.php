@@ -27,10 +27,10 @@ class Bar extends Model
          return self::orderBy('updated_at', "DESC")->where('user_id', '=', $user_id)->limit($limit)->get();
      }
 
-public function image()
-{
-    return $this->belongsTo('App\Models\Image', 'image1_id', 'id');
-}
+    public function image()
+    {
+        return $this->belongsTo('App\Models\Image', 'image_id', 'id');
+    }
 
      public static function findAllShareable()
      {

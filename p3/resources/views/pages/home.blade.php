@@ -5,19 +5,23 @@
 @endsection
 
 @section('content')
-    <div class="w-full grid grid-cols-2 gap-4 p-3">
+    <div class="w-full grid md:grid-cols-2 xl:grid-cols-3 gap-4 p-3">
 
-        {{-- left --}}
+        {{-- first - left --}}
         <div class="w-full h-full mx-auto max-w-lg ">
             @include('partials.about-hero')
-            @include('partials.search-bars')
-            @include('partials.all-bars')
         </div>
 
-        {{-- right --}}
+        {{-- second - lg is middle --}}
         <div class="w-full h-full mx-auto max-w-lg ">
             @include('partials.create-div')
             @include('partials.my-bars')
+        </div>
+
+        {{-- last - lg is right / md is bottom --}}
+        <div class="w-full h-full mx-auto max-w-lg ">
+            @include('partials.search-bars')
+            @include('partials.all-bars')
         </div>
     </div>
 @endsection

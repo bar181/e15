@@ -36,16 +36,16 @@
             </div>
 
             <div class="my-5">
-                <label for='image1' class='block mb-2 text-sm font-medium text-gray-900'>Primary Image</label>
-                <select name='image1'
+                <label for='image_id' class='block mb-2 text-sm font-medium text-gray-900'>Primary Image</label>
+                <select name='image_id'
                     class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
                     <option value=''>Choose one...</option>
                     @foreach ($images as $image)
-                        <option value='{{ $image->id }}' {{ old('image1') == $image->id ? 'selected' : '' }}>
+                        <option value='{{ $image->id }}' {{ old('image_id') == $image->id ? 'selected' : '' }}>
                             {{ $image->name }}</option>
                     @endforeach
                 </select>
-                @include('includes.error-field', ['fieldName' => 'image1'])
+                @include('includes.error-field', ['fieldName' => 'image_id'])
             </div>
 
 

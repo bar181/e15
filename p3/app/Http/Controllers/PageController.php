@@ -21,12 +21,33 @@ class PageController extends Controller
             $allBars = Bar::findAllShareable();
         }
 
-
+        // dd('welcome');
         return view('pages/home', [
             'searchDetails' => session('searchDetails', null),
             'myBars' => $myBars,
             'allBars' => $allBars,
         ]);
+    }
+
+     public function search(Request $request)
+    {
+        # no validate required (want to allow no terms = get everything)
+        # Get form data
+        $searchType = $request->input('searchType', 'name');
+        $searchTerms = $request->input('searchTerms', '');
+
+        # Do the search
+        if($searchTerms) {
+            $searchResults = Bar::where($searchType, 'LIKE', '%' . $searchTerms . '%')->get();
+            $searchDetails = "(search: " . $searchTerms . ")";
+        }
+
+        # Redirect back to the form with data/results stored in the session
+        # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
+        return redirect('/')->with([
+            'searchResults' => $searchResults ?? null,
+            'searchDetails' => $searchDetails ?? null
+        ])->withInput();
     }
 
 }

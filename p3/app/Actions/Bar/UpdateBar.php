@@ -17,6 +17,7 @@ class UpdateBar
         $bar->slug = $newBarData->slug;
         $bar->topic = $newBarData->topic;
         $bar->share = isset($newBarData->share) ? 1 : 0;
+        $bar->image_id = $newBarData->image_id;
         $bar->save();
 
         # Set up any results that might be needed from this action
