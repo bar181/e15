@@ -1,0 +1,57 @@
+[
+    {
+        "user_id": 1,
+        "name": "Harvard",
+        "slug": "harvard",
+        "topic": "Fun Facts",
+        "share": 1,
+        "image_id": 14,
+        "content1": "Harvard University is the oldest institution of higher education in the United States. It was founded in 1636 and named after John Harvard, who left his library and half his estate to the institution when he died.",
+        "content2": "Harvard's library system is the largest academic library in the world, with over 20 million volumes in its collections. The library is made up of over 70 individual libraries, including the Widener Library, which is the university's flagship library and one of the largest libraries in the world.",
+        "content3": "Harvard has produced more U.S. presidents than any other university. Eight U.S. presidents have graduated from Harvard, including John Adams, John Quincy Adams, Theodore Roosevelt, Franklin D. Roosevelt, John F. Kennedy, George W. Bush, Barack Obama, and most recently, Joe Biden."
+    },
+    {
+        "user_id": 1,
+        "name": "PHP",
+        "slug": "php",
+        "topic": "Fun Facts",
+        "share": 1,
+        "image_id": 16,
+        "content1": "PHP was originally an acronym for Personal Home Page Tools",
+        "content2": "PHP was originally created as a set of Common Gateway Interface (CGI) scripts for tracking visitors to a personal website of Rasmus Lerdorf, a Danish-Canadian programmer, in 1994. Lerdorf later released the scripts as open source, and other developers contributed to their development, leading to the creation of the PHP language we know today.",
+        "content3": "PHP is used by many popular websites and content management systems (CMS), including Facebook, Wikipedia, WordPress, and Joomla. In fact, according to the W3Techs survey, PHP is used by 78.9% of all websites with a known server-side programming language"
+    },
+    {
+        "user_id": 2,
+        "name": "About Animals",
+        "slug": "animals",
+        "topic": "Fun Facts",
+        "share": 1,
+        "image_id": 4,
+        "content1": "Some species of birds, such as pigeons and homing pigeons, have the ability to detect Earth's magnetic field and use it to navigate during migration. This ability is thought to be linked to the presence of tiny crystals of magnetite in the birds' beaks, which can act as a magnetic compass",
+        "content2": "The common octopus has an incredible ability to change the color and texture of its skin to match its surroundings, making it almost invisible to predators. It can do this by contracting and expanding specialized skin cells called chromatophores, which contain pigments that can be manipulated to produce different colors and patterns.",
+        "content3": "The blue whale is the largest animal on Earth, and also the loudest. Its calls have been recorded at up to 188 decibels, making it louder than a jet engine and even louder than the loudest rock concerts. Despite this, the calls can travel for hundreds of miles underwater, allowing blue whales to communicate with each other over long distances."
+    },
+    {
+        "user_id": 2,
+        "name": "About my family",
+        "slug": "simpsons-family",
+        "topic": "Family",
+        "share": 0,
+        "image_id": 11,
+        "content1": "The Simpsons is the longest-running American sitcom and the longest-running American animated program in history",
+        "content2": "The character of Marge Simpson was originally designed with rabbit ears",
+        "content3": "The character of Apu Nahasapeemapetilon, the Kwik-E-Mart clerk, was originally voiced by white actor Hank Azaria"
+    },
+    {
+        "user_id": 3,
+        "name": "Pitch for Kids Books",
+        "slug": "books-pitch",
+        "topic": "Business Ideas",
+        "share": 1,
+        "image_id": 11,
+        "content1": "The Adventures of the Curious Caterpillar - This book could follow the journey of a young caterpillar who sets out to explore the world and learns important lessons along the way.",
+        "content2": "The Mystery of the Missing Toy - In this book, a group of animal friends work together to solve the mystery of a missing toy and discover the importance of teamwork and problem-solving.",
+        "content3": "The Magic Garden - This book could tell the story of a young girl who discovers a secret garden filled with magical plants and creatures, and learns to appreciate the beauty and wonder of nature."
+    }
+]

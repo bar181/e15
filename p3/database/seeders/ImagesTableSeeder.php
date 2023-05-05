@@ -16,14 +16,14 @@ class ImagesTableSeeder extends Seeder
 
         $this->faker = Factory::create();
 
-        $this->addAllImagesFromIamgesDotJsonFile();
+        $this->addAllImagesFromImagesJson();
 
     }
 
-     private function addAllImagesFromIamgesDotJsonFile()
+     private function addAllImagesFromImagesJson()
      {
-         $imageData = file_get_contents(database_path('images.json'));
-         $images = json_decode($imageData, true);
+         $rawImageData = file_get_contents(database_path('images.json'));
+         $images = json_decode($rawImageData, true);
 
          foreach ($images as $imageData) {
              $image = new Image();

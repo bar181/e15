@@ -56,6 +56,25 @@
             </div>
 
             <div class="my-5">
+                <label for='content1' class='block mb-2 text-sm font-medium text-gray-900'>Fun Fact 1 </label>
+                <input type='text' name='content1' test='content1-input' value='{{ old('content1', $bar->content1) }}'
+                    class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+                @include('includes.error-field-generic', ['fieldName' => 'content1'])
+            </div>
+            <div class="my-5">
+                <label for='content2' class='block mb-2 text-sm font-medium text-gray-900'>Fun Fact 2 </label>
+                <input type='text' name='content2' test='content2-input' value='{{ old('content2', $bar->content2) }}'
+                    class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+                @include('includes.error-field-generic', ['fieldName' => 'content2'])
+            </div>
+            <div class="my-5">
+                <label for='content3' class='block mb-2 text-sm font-medium text-gray-900'>Fun Fact 3 </label>
+                <input type='text' name='content3' test='content3-input' value='{{ old('content3', $bar->content3) }}'
+                    class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+                @include('includes.error-field-generic', ['fieldName' => 'content3'])
+            </div>
+
+            <div class="my-5">
                 <input name="share" class="w-5 h-5 pt-4 " type="checkbox" value="1"
                     {{ old('share', $bar->share) ? 'checked' : '' }} />
                 <label for="share" class="h-6 cursor-pointer select-none text-slate-700 pl-2">Make Shareable</label>

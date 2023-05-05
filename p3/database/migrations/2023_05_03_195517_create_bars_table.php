@@ -20,6 +20,9 @@ return new class () extends Migration {
             $table->string('topic');
             $table->boolean('share');
             $table->bigInteger('image_id')->nullable()->unsigned();
+            $table->string('content1', 500);
+            $table->string('content2', 500);
+            $table->string('content3', 500);
 
             # index common searches
             $table->foreign('user_id')->references('id')->on('users');

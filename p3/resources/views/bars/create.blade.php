@@ -27,6 +27,7 @@
                     class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
                 @include('includes.error-field', ['fieldName' => 'slug'])
             </div>
+
             <div class="my-5">
                 <label for='topic' class='block mb-2 text-sm font-medium text-gray-900'>Topic (e.g. School, Business,
                     Relationships, Facts)</label>
@@ -46,6 +47,25 @@
                     @endforeach
                 </select>
                 @include('includes.error-field', ['fieldName' => 'image_id'])
+            </div>
+
+            <div class="my-5">
+                <label for='content1' class='block mb-2 text-sm font-medium text-gray-900'>Fun Fact 1 </label>
+                <input type='text' name='content1' test='content1-input' value='{{ old('content1') }}'
+                    class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+                @include('includes.error-field-generic', ['fieldName' => 'content1'])
+            </div>
+            <div class="my-5">
+                <label for='content2' class='block mb-2 text-sm font-medium text-gray-900'>Fun Fact 2 </label>
+                <input type='text' name='content2' test='content2-input' value='{{ old('content2') }}'
+                    class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+                @include('includes.error-field-generic', ['fieldName' => 'content2'])
+            </div>
+            <div class="my-5">
+                <label for='content3' class='block mb-2 text-sm font-medium text-gray-900'>Fun Fact 3 </label>
+                <input type='text' name='content3' test='content3-input' value='{{ old('content3') }}'
+                    class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
+                @include('includes.error-field-generic', ['fieldName' => 'content3'])
             </div>
 
 

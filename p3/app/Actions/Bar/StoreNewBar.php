@@ -20,6 +20,9 @@ class StoreNewBar
         $bar->topic = $newBarData->topic;
         $bar->image_id = $newBarData->image_id;
         $bar->share = isset($newBarData->share) ? 1 : 0;
+        $bar->content1 = $newBarData->content1;
+        $bar->content2 = $newBarData->content2;
+        $bar->content3 = $newBarData->content3;
         $bar->save();
 
         # Set up any results that might be needed from this action

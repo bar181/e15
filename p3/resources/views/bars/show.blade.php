@@ -20,17 +20,18 @@
     </div>
 
     <div class="grid justify-center w-full  px-4 py-8 bg-white text-white">
-
-
         <div class="relative w-full pt-[50px] md:w-[860px] xl:w-[1120px] md:aspect-[2/1] rounded-2xl text-grey-200 bg-gray-900"
             style="min-height:320px">
 
             <div class=" md:flex items-center justify-center w-full">
                 <div class="w-full px-3 text-center ">
                     <div class="text-left p-3 absolute bottom-0 left-0">Brief and Readable</div>
+                    @if ($bar->share)
+                        <div class="text-right p-3 absolute bottom-0 right-0">Shareable</div>
+                    @endif
 
                     <div class="font-bold  text-center text-xl md:text-5xl w-full">{{ $bar->name }}</div>
-                    <div class="font-bold py-5 text-center text-xl md:text-5xl w-full">Topic: {{ $bar->topic }}</div>
+                    <div class="font-bold py-5 text-center text-xl md:text-3xl w-full">Topic: {{ $bar->topic }}</div>
                     <div class="font-bold py-5 text-center text-xl md:text-5xl w-full">
                         <hr>
                     </div>
@@ -38,54 +39,73 @@
                     </div>
                     <div class="font-bold text-center text-xl md:text-xl w-full">{{ $bar->updated_at->format('Y-m-d') }}
                     </div>
-                    @if ($bar->share)
-                        <div class="font-bold text-center md:text-xl w-full">This BAR is Shareable</div>
-                    @endif
+
                 </div>
             </div>
         </div>
 
-        {{-- <div class="pb-8 md:w-[860px] xl:w-[1120px] w-full">
-                <div class="w-full  md:aspect-[2/1] rounded-2xl text-grey-200 bg-gray-900">
+        <div class="pb-8 md:w-[860px] xl:w-[1120px] w-full mt-5">
+            <div class="w-full  md:aspect-[2/1] rounded-2xl text-grey-200 bg-gray-900">
 
-                    <div class="md:flex w-full">
-                        <div class="relative flex w-full md:w-1/2 rounded-2xl items-center justify-center aspect-w-1 aspect-h-1"
-                            style="min-height:320px">
-                            <div class="w-full px-3 text-center ">
-                                <div class="text-left p-3 absolute bottom-0 left-0">Brief and Readable</div>
-                                <div class="font-bold py-5 text-center text-xl md:text-2xl w-full">{{ $bar->topic }}</div>
-                                <div class="text-left text-xl md:text-xl w-full">{{ $bar->content1 }}</div>
-
+                <div class="md:flex w-full">
+                    <div class="relative flex w-full md:w-1/2 rounded-2xl items-center justify-center aspect-w-1 aspect-h-1"
+                        style="min-height:320px">
+                        <div class="w-full px-3 text-center ">
+                            <div class="text-left p-3 absolute bottom-0 left-0">Brief and Readable by {{ $bar->user->name }}
                             </div>
-                        </div>
-                        <div class="flex w-full md:w-1/2 rounded-2xl ">
-                            <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image1->src }}"
-                                alt="report image" />
+                            <div class="font-bold py-5 text-center text-xl md:text-2xl w-full">{{ $bar->name }}</div>
+                            <div class="text-left text-xl md:text-xl w-full">{{ $bar->content1 }}</div>
+
                         </div>
                     </div>
-                </div>
-            </div> --}}
-
-        {{-- <div class="pb-8 xl:max-w-[1120px] w-full">
-                <div class="w-full  md:aspect-[2/1] rounded-2xl relative text-grey-200 bg-gray-900">
-
-                    <div class="md:flex w-full">
-                        <div class="relative flex w-full md:w-1/2 rounded-2xl items-center justify-center aspect-w-1 aspect-h-1"
-                            style="min-height:320px">
-                            <div class="w-full px-3 text-center ">
-                                <div class="text-left p-3 absolute bottom-0 left-0">Brief and Readable</div>
-                                <div class="font-bold py-5 text-center text-xl md:text-2xl w-full">{{ $bar->title2 }}</div>
-                                <div class="text-left text-xl md:text-xl w-full">{{ $bar->content2 }}</div>
-                            </div>
-                        </div>
-                        <div class="flex w-full md:w-1/2 rounded-2xl ">
-                            <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image2->src }}"
-                                alt="report image" />
-                        </div>
+                    <div class="flex w-full md:w-1/2 rounded-2xl ">
+                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image->src }}" alt="report image" />
                     </div>
                 </div>
-            </div> --}}
+            </div>
+        </div>
 
+        <div class="pb-8 md:w-[860px] xl:w-[1120px] w-full mt-5">
+            <div class="w-full  md:aspect-[2/1] rounded-2xl text-grey-200 bg-gray-900">
+
+                <div class="md:flex w-full">
+                    <div class="relative flex w-full md:w-1/2 rounded-2xl items-center justify-center aspect-w-1 aspect-h-1"
+                        style="min-height:320px">
+                        <div class="w-full px-3 text-center ">
+                            <div class="text-left p-3 absolute bottom-0 left-0">Brief and Readable by
+                                {{ $bar->user->name }}</div>
+                            <div class="font-bold py-5 text-center text-xl md:text-2xl w-full">{{ $bar->name }}</div>
+                            <div class="text-left text-xl md:text-xl w-full">{{ $bar->content2 }}</div>
+
+                        </div>
+                    </div>
+                    <div class="flex w-full md:w-1/2 rounded-2xl ">
+                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image2src }}" alt="report image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-8 md:w-[860px] xl:w-[1120px] w-full mt-5">
+            <div class="w-full  md:aspect-[2/1] rounded-2xl text-grey-200 bg-gray-900">
+
+                <div class="md:flex w-full">
+                    <div class="relative flex w-full md:w-1/2 rounded-2xl items-center justify-center aspect-w-1 aspect-h-1"
+                        style="min-height:320px">
+                        <div class="w-full px-3 text-center ">
+                            <div class="text-left p-3 absolute bottom-0 left-0">Brief and Readable by
+                                {{ $bar->user->name }}</div>
+                            <div class="font-bold py-5 text-center text-xl md:text-2xl w-full">{{ $bar->name }}</div>
+                            <div class="text-left text-xl md:text-xl w-full">{{ $bar->content3 }}</div>
+
+                        </div>
+                    </div>
+                    <div class="flex w-full md:w-1/2 rounded-2xl ">
+                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image3src }}" alt="report image" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 @endsection
