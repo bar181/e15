@@ -7,19 +7,30 @@ use Illuminate\Support\Arr;
 use App\Models\Bar;
 use App\Models\Image;
 use App\Actions\Bar\StoreNewBar;
+use App\Actions\Bar\UpdateBar;
 
 // use Illuminate\Support\Facades\Mail;
 // use App\Mail\AddNewBookMail;
 
 class BarController extends Controller
 {
+    public function index(Request $request)
+    {
+        $limit = 1000;
+        $user = $request->user();
+        $myBars = ($user) ? Bar::findByUser($user->id, $limit) : [];
+
+
+        return view('bars/index', [
+            'myBars' => $myBars
+        ]);
+    }
+
     /**
-    * GET /books/create
-    * Display the form to add a new book
-    */
+        * GET /bar/create
+        */
     public function create(Request $request)
     {
-
         $images = Image::orderBy('name')->select(['id', 'name', 'src'])->get();
 
         return view('bars/create', [
@@ -28,8 +39,8 @@ class BarController extends Controller
     }
 
      /**
-    * POST /books
-    * Process the form for adding a new book
+    * POST /bar
+    * Process the form for adding a new bar
     */
     public function store(Request $request)
     {
@@ -37,177 +48,140 @@ class BarController extends Controller
             'name' => 'required|max:255',
             'slug' => 'required|unique:bars,slug,alpha_dash',
             'topic' => 'required|max:255',
-            'title1' => 'required|max:255',
-            'content1' => 'required|min:10',
             'image1' => 'required',
-            'title2' => 'required|max:255',
-            'content2' => 'required|min:10',
-            'image2' => 'required',
         ]);
 
 
+        # add user for saving
         $user = $request->user();
         $data = array_merge($request->all(), ['user_id' => $user->id]);
 
         $action = new StoreNewBar((object) $data);
+        $redirectUrl = '/bars/' . $action->results->slug . '/edit';
 
-        // $mail = new AddNewBookMail($action->results->book);
-        // Mail::to($user->email)->send($mail);
-
-
-        return redirect('/bars/' . $action->results->slug)->with(['flash-alert' => 'Your new BAR']);
+        return redirect($redirectUrl)->with(['flash-alert' => 'New BAR Created']);
     }
 
-    /**
-    * GET /search
-    * Show search results
-    */
-    public function search(Request $request)
-    {
-        $request->validate([
-            'searchTerms' => 'required',
-            'searchType' => 'required'
-        ]);
+    // public function ogstore(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|max:255',
+    //         'slug' => 'required|unique:bars,slug,alpha_dash',
+    //         'topic' => 'required|max:255',
+    //         'title1' => 'required|max:255',
+    //         'content1' => 'required|min:10',
+    //         'image1' => 'required',
+    //         'title2' => 'required|max:255',
+    //         'content2' => 'required|min:10',
+    //         'image2' => 'required',
+    //     ]);
 
-        # If validation fails it will redirect back to `/`
 
-        # Get form data
-        $searchType = $request->input('searchType', 'title');
-        $searchTerms = $request->input('searchTerms', '');
+    //     $user = $request->user();
+    //     $data = array_merge($request->all(), ['user_id' => $user->id]);
 
-        # Do the search
-        $searchResults = Book::where($searchType, 'LIKE', '%' . $searchTerms . '%')->get();
+    //     $action = new StoreNewBar((object) $data);
 
-        # Redirect back to the form with data/results stored in the session
-        # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
-        return redirect('/')->with([
-            'searchResults' => $searchResults
-        ])->withInput();
-    }
+    //     return redirect('/bars/' . $action->results->slug)->with(['flash-alert' => 'Your new BAR']);
+    // }
+
 
     /**
-     * GET /books
-     * Show all the books
-     */
-    public function index()
-    {
-        $books = Book::orderBy('title', 'ASC')->get();
-
-        //$newBooks = Book::orderBy('id', 'DESC')->limit(3)->get();
-
-        $newBooks = $books->sortByDesc('id')->take(3);
-
-        return view('books/index', [
-            'books' => $books,
-            'newBooks' => $newBooks
-        ]);
-    }
-
-    /**
-     * GET /books/{slug}
-     * Show an individual book searching by slug
+     * GET /bar/{slug}
+     * Show BAR presentation
      */
     public function show(Request $request, $slug)
     {
         $bar = Bar::findBySlug($slug);
 
+        # Bar does not exist
         if (!$bar) {
             return redirect('/bars')->with(['flash-alert' => 'BAR not found.']);
         }
 
+        # add edit button (if user is author)
+        $user = $request->user();
+        $isEdit = ($user && $user->id == $bar->user_id);
+
+        # bar not shareable (author can always view)
+        # remember $bar->image->src shows the image src
+        if (!$isEdit && $bar->share) {
+            return redirect('/bars')->with(['flash-alert' => 'BAR not shareable.  Ask author to update']);
+        }
+
         return view('bars/show', [
             'bar' => $bar,
+            'isEdit' => $isEdit,
         ]);
     }
 
      /**
-    * GET /books/{slug}/edit
+    * GET /bar/{slug}/edit
+    * show edit form
     */
     public function edit(Request $request, $slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $bar = Bar::findBySlug($slug);
+        $user = $request->user();
 
-        $authors = Author::getForDropdown();
-
-        if (!$book) {
-            return redirect('/books')->with(['flash-alert' => 'Book not found.']);
+        if (!$bar || !$user) {
+            return redirect('/bars')->with(['flash-alert' => 'BAR not found.']);
         }
 
-        return view('books/edit', [
-            'book' => $book,
-            'authors' => $authors
+        if ($user->id != $bar->user_id) {
+            return redirect('/bars')->with(['flash-alert' => 'Not authorized to edit.']);
+        }
+
+        $images = Image::orderBy('name')->select(['id', 'name', 'src'])->get();
+
+        return view('bars/edit', [
+            'bar' => $bar,
+            'images' => $images
+
         ]);
     }
 
     /**
-    * PUT /books
+    * PUT /bar/slug
     */
     public function update(Request $request, $slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $bar = Bar::findBySlug($slug);
 
         $request->validate([
-            'title' => 'required',
-            'slug' => 'required|unique:books,slug,' . $book->id . '|alpha_dash',
-            'author_id' => 'required',
-            'published_year' => 'required|digits:4',
-            'cover_url' => 'url',
-            'info_url' => 'url',
-            'purchase_url' => 'required|url',
-            'description' => 'required|min:100'
-        ]);
+               'name' => 'required|max:255',
+               'slug' => 'required|unique:bars,slug,' . $bar->id . '|alpha_dash',
+               'topic' => 'required|max:255',
+           ]);
 
-        $book->title = $request->title;
-        $book->slug = $request->slug;
-        $book->author_id = $request->author_id;
-        $book->published_year = $request->published_year;
-        $book->cover_url = $request->cover_url;
-        $book->info_url = $request->info_url;
-        $book->purchase_url = $request->purchase_url;
-        $book->description = $request->description;
-        $book->save();
+        $action = new UpdateBar($bar, (object) $request->all());
+        $redirectUrl = '/bars/' . $action->results->slug . '/edit';
 
-        return redirect('/books/'.$slug.'/edit')->with(['flash-alert' => 'Your changes were saved.']);
+        return redirect($redirectUrl)->with(['flash-alert' => 'Your changes were saved']);
     }
 
-     /**
-    * Asks user to confirm they want to delete the book
-    * GET /books/{slug}/delete
-    */
-    public function delete($slug)
+    public function search(Request $request)
     {
-        $book = Book::findBySlug($slug);
+        # no validate required (want to allow no terms = get everything)
+        # Get form data
+        $searchType = $request->input('searchType', 'name');
+        $searchTerms = $request->input('searchTerms', '');
 
-        if (!$book) {
-            return redirect('/books')->with([
-                'flash-alert' => 'Book not found'
-            ]);
+        # Do the search
+        if($searchTerms) {
+            $searchResults = Bar::where($searchType, 'LIKE', '%' . $searchTerms . '%')->get();
+            $searchDetails = "(search: " . $searchTerms . ")";
+
+
         }
 
-        return view('books/delete', ['book' => $book]);
+
+        # Redirect back to the form with data/results stored in the session
+        # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
+        return redirect('/')->with([
+            'searchResults' => $searchResults ?? null,
+            'searchDetails' => $searchDetails ?? null
+        ])->withInput();
     }
 
-    /**
-    * Deletes the book
-    * DELETE /books/{slug}/delete
-    */
-    public function destroy($slug)
-    {
-        $book = Book::findBySlug($slug);
-
-        $book->delete();
-
-        return redirect('/books')->with([
-            'flash-alert' => '“' . $book->title . '” was removed.'
-        ]);
-    }
-
-    /**
-     * GET /books/filter/{category}/{subcategory}
-     * Filter method that was demonstrate working with multiple route parameters
-     */
-    public function filter($category, $subcategory)
-    {
-        return 'Show all books in these categories: ' . $category . ',' . $subcategory;
-    }
 }

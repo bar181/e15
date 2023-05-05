@@ -21,7 +21,7 @@
     @include('layouts.nav')
 
     @if (session('flash-alert'))
-        <div class='flash-alert'>
+        <div class='bg-red-400 text-white py-3 text-center text-xl'>
             {{ session('flash-alert') }}
         </div>
     @endif

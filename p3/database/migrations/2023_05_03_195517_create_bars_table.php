@@ -22,15 +22,15 @@ return new class () extends Migration {
 
             $table->string('title1')->nullable();
             $table->text('content1')->nullable();
-            $table->bigInteger('image1')->nullable()->unsigned();
+            $table->bigInteger('image1_id')->nullable()->unsigned();
 
             $table->string('title2')->nullable();
             $table->text('content2')->nullable();
-            $table->bigInteger('image2')->nullable()->unsigned();
+            $table->bigInteger('image2_id')->nullable()->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('image1')->references('id')->on('images');
-            $table->foreign('image2')->references('id')->on('images');
+            $table->foreign('image1_id')->references('id')->on('images');
+            $table->foreign('image2_id')->references('id')->on('images');
             $table->index('share');
 
 

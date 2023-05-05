@@ -5,25 +5,21 @@ namespace App\Actions\Bar;
 use App\Models\Bar;
 use stdClass;
 
-class StoreNewBar
+class UpdateBar
 {
     public $results;
 
-    public function __construct($newBarData)
+    public function __construct($bar, $newBarData)
     {
 
         # Do the action
-        $bar = new Bar();
-        $bar->user_id = $newBarData->user_id;
         $bar->name = $newBarData->name;
         $bar->slug = $newBarData->slug;
         $bar->topic = $newBarData->topic;
-        $bar->image1_id = $newBarData->image1;
         $bar->share = isset($newBarData->share) ? 1 : 0;
         $bar->save();
 
         # Set up any results that might be needed from this action
-
         $this->results = new stdClass();
         $this->results->bar = $bar;
         $this->results->slug = $bar->slug;

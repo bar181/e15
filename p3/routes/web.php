@@ -24,11 +24,13 @@ Route::get('/', [PageController::class, 'welcome']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [BarController::class, 'search']);
-    Route::get('/bars/create', [BarController::class, 'create']);
+    Route::get('/bars/create/{page?}', [BarController::class, 'create']);
     Route::post('/bars', [BarController::class, 'store']);
 
+    Route::get('/bars/', [BarController::class, 'index']);
     Route::get('/bars/{slug}', [BarController::class, 'show']);
-
+    Route::get('/bars/{slug}/edit', [BarController::class, 'edit']);
+    Route::put('/bars/{slug}', [BarController::class, 'update']);
 
 
 });

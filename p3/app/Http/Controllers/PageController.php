@@ -3,21 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bar;
 
 class PageController extends Controller
 {
-    public function welcome()
+    public function welcome(Request $request)
     {
         # If there is data stored in the session as the results of doing a search
-        # that data will be extracted from the session and passed to the view
-        # to display the results
-        return view('pages/welcome', [
-            'searchResults' => session('searchResults', null)
+        # if user logged in and has BARs return array (otherwise empty array)
+
+        $user = $request->user();
+        $myBars = ($user) ? Bar::findByUser($user->id) : [];
+
+        if (session('searchResults')) {
+            $allBars = session('searchResults');
+        } else {
+            $allBars = Bar::findAllShareable();
+        }
+
+
+        return view('pages/home', [
+            'searchDetails' => session('searchDetails', null),
+            'myBars' => $myBars,
+            'allBars' => $allBars,
         ]);
     }
 
-    public function contact()
-    {
-        return view('pages/contact');
-    }
 }

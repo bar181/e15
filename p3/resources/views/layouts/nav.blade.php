@@ -17,9 +17,18 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto text-white">
         <div class="text-sm lg:flex-grow">
             @if (Auth::user())
-                {{ Auth::user()->name }}
+                Welcome {{ Auth::user()->name }}
+
+                <span class="px-5"> | </span>
+                <a href='/' test='nav-home-link'
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Home </a>
+                <a href='/bars/' test='nav-create-link'
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">My Work </a>
+                <a href='/bars/create' test='nav-create-link'
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Create </a>
             @endif
         </div>
+
         <div>
             @if (!Auth::user())
                 <a href='/login' test='login-link'
