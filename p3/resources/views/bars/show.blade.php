@@ -12,7 +12,7 @@
         </div>
         @if ($isEdit)
             <div>
-                <a href='/bars/{{ $bar->slug }}/edit'
+                <a href='/bars/{{ $bar->slug }}/edit' test='show-edit-link'
                     class='text-white bg-orange-500 hover:bg-orange-700  px-2 py-1 text-center'>
                     <i class="fa fa-edit pr-2"></i>Edit</a>
             </div>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="flex w-full md:w-1/2 rounded-2xl ">
-                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image->src }}" alt="report image" />
+                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image1->src }}" alt="report image" />
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="flex w-full md:w-1/2 rounded-2xl ">
-                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image2src }}" alt="report image" />
+                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image2->src }}" alt="report image" />
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <div class="flex w-full md:w-1/2 rounded-2xl ">
-                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image3src }}" alt="report image" />
+                        <img class="inset-0 w-full mx-auto rounded-2xl" src="{{ $bar->image3->src }}" alt="report image" />
                     </div>
                 </div>
             </div>

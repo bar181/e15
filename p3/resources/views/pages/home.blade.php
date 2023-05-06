@@ -20,7 +20,6 @@
 
         {{-- last - lg is right / md is bottom --}}
         <div class="w-full h-full mx-auto max-w-lg ">
-            @include('partials.search-bars')
             @include('partials.all-bars')
         </div>
     </div>

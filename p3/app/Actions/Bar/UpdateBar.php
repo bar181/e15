@@ -17,8 +17,9 @@ class UpdateBar
         $bar->slug = $newBarData->slug;
         $bar->topic = $newBarData->topic;
         $bar->share = isset($newBarData->share) ? 1 : 0;
-        $bar->image_id = $newBarData->image_id;
-
+        $bar->image1_id = $newBarData->image1_id;
+        $bar->image2_id = $newBarData->image2_id;
+        $bar->image3_id = $newBarData->image3_id;
         $bar->content1 = $newBarData->content1;
         $bar->content2 = $newBarData->content2;
         $bar->content3 = $newBarData->content3;

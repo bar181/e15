@@ -49,7 +49,9 @@ class BarController extends Controller
             'name' => 'required|max:255',
             'slug' => 'required|unique:bars,slug,alpha_dash',
             'topic' => 'required|max:255',
-            'image_id' => 'required',
+            'image1_id' => 'required',
+            'image2_id' => 'required',
+            'image3_id' => 'required',
             'content1' => 'required|max:500',
             'content2' => 'required|max:500',
             'content3' => 'required|max:500',
@@ -91,10 +93,7 @@ class BarController extends Controller
             return redirect('/bars')->with(['flash-alert' => 'BAR not shareable.  Ask author to update']);
         }
 
-        # add other images for show
-        $otherImages = Image::otherImages($bar->image_id);
-        $bar->image2src = $otherImages[0];
-        $bar->image3src = $otherImages[1];
+
 
         return view('bars/show', [
             'bar' => $bar,
@@ -112,6 +111,8 @@ class BarController extends Controller
 
         $bar = Bar::findBySlug($slug);
         $images = Image::orderBy('name')->select(['id', 'name', 'src'])->get();
+
+        // dd($bar, $bar->image1, $bar->image1->src);
 
         return view('bars/edit', [
             'bar' => $bar,
@@ -133,7 +134,9 @@ class BarController extends Controller
                'name' => 'required|max:255',
                'slug' => 'required|unique:bars,slug,' . $bar->id . '|alpha_dash',
                'topic' => 'required|max:255',
-               'image_id' => 'required',
+               'image1_id' => 'required',
+               'image2_id' => 'required',
+               'image3_id' => 'required',
                'content1' => 'required|max:500',
                'content2' => 'required|max:500',
                'content3' => 'required|max:500',

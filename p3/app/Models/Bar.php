@@ -31,6 +31,19 @@ class Bar extends Model
     {
         return $this->belongsTo('App\Models\Image', 'image_id', 'id');
     }
+     public function image1()
+     {
+         return $this->belongsTo('App\Models\Image', 'image1_id', 'id');
+     }
+     public function image2()
+     {
+         return $this->belongsTo('App\Models\Image', 'image2_id', 'id');
+     }
+     public function image3()
+     {
+         return $this->belongsTo('App\Models\Image', 'image3_id', 'id');
+     }
+
 
      public static function findAllShareable()
      {

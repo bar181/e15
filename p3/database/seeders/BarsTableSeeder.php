@@ -34,7 +34,9 @@ class BarsTableSeeder extends Seeder
              $bar->slug = $barData['slug'];
              $bar->topic = $barData['topic'];
              $bar->share = $barData['share'];
-             $bar->image_id = $barData['image_id'];
+             $bar->image1_id = $barData['image1_id'];
+             $bar->image2_id = $barData['image2_id'];
+             $bar->image3_id = $barData['image3_id'];
              $bar->content1 = $barData['content1'];
              $bar->content2 = $barData['content2'];
              $bar->content3 = $barData['content3'];

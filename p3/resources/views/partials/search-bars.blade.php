@@ -1,7 +1,5 @@
-<div class="w-full text-center bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <form method='GET' action='/search' class="w-full text-center ">
         <div class="">
-            <label for='searchTerms' class='block mb-2 text-2xl text-purple-700 '>Search Public Gallery</label>
             <input type='text' name='searchTerms' test='search-input' value='{{ old('searchTerms') }}' autofocus
                 class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'>
             @include('includes.error-field', ['fieldName' => 'searchTerms'])
@@ -30,4 +28,3 @@
             </ul>
         @endif
     </form>
-</div>

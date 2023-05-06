@@ -1,4 +1,4 @@
-<div class="w-full text-left bg-white shadow-md rounded px-4 pt-6 pb-8 mb-4">
+<div class="w-full text-left bg-white shadow-md rounded px-4 pt-6 pb-4 mb-4">
     <div class='block pb-5 text-center w-full  text-2xl text-purple-700 '>My Work</div>
     @if (Auth::user())
         @if (count($myBars) > 0)
@@ -20,15 +20,19 @@
                         </div>
                     </li>
                 @endforeach
-                </ol>
-            @else
-                <p>No bars found.</p>
+            </ul>
+            <div class=" pt-4 font-small text-gray-400">
+                Shareable to public gallery <i class="fa fa-share-nodes pr-2"></i>
+            </div>
+        @else
+            <p>No bars found.</p>
         @endif
     @else
         <div class='text-center'>
             <a href='/bars/create' test='login-mybars-link'
                 class=' text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
-                Login First</a>
-            <div>
+                Login First
+            </a>
+        </div>
     @endif
 </div>

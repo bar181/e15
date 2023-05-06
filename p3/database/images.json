@@ -40,9 +40,9 @@
         "src": "https://cdn.midjourney.com/41c1b5e9-ec8f-4b69-927d-04ecb6f2a6ae/0_2.png"
     },
     {
-        "var_code": "Attractive",
-        "name": "Attractive",
-        "src": "https://cdn.midjourney.com/1d59e116-5650-41ef-ae20-acec36c46e00/0_1.png"
+        "var_code": "Harvard",
+        "name": "Harvard",
+        "src": "https://cdn.midjourney.com/139e257f-ac0e-46a3-a039-cf82daf6fe38/grid_0.png"
     },
     {
         "var_code": "Historic",
@@ -113,6 +113,26 @@
         "var_code": "Watercolor",
         "name": "Watercolor",
         "src": "https://cdn.midjourney.com/154b70f2-b47a-40a9-bcbd-6e297f974511/0_1.png"
+    },
+    {
+        "var_code": "Flower",
+        "name": "Flower",
+        "src": "https://cdn.midjourney.com/d4c86913-c277-4d77-bb91-76b45811a81d/0_3.png"
+    },
+    {
+        "var_code": "Moon",
+        "name": "Moon",
+        "src": "https://cdn.midjourney.com/6e5b9082-98ae-4415-a3fb-b4c934ba8217/0_3.png"
+    },
+    {
+        "var_code": "Space",
+        "name": "Space",
+        "src": "https://cdn.midjourney.com/772a9d34-a70a-46cd-a7a2-b09e219b9ed4/0_3.png"
+    },
+    {
+        "var_code": "Kitten",
+        "name": "Kitten",
+        "src": "https://cdn.midjourney.com/412bdf6f-b7db-487b-819b-f550c7bdbbad/grid_0.png"
     },
     {
         "var_code": "PopCulture",

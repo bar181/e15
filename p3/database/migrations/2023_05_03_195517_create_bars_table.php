@@ -19,14 +19,18 @@ return new class () extends Migration {
             $table->string('slug');
             $table->string('topic');
             $table->boolean('share');
-            $table->bigInteger('image_id')->nullable()->unsigned();
+            $table->bigInteger('image1_id')->nullable()->unsigned();
+            $table->bigInteger('image2_id')->nullable()->unsigned();
+            $table->bigInteger('image3_id')->nullable()->unsigned();
             $table->string('content1', 500);
             $table->string('content2', 500);
             $table->string('content3', 500);
 
             # index common searches
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('image1_id')->references('id')->on('images');
+            $table->foreign('image2_id')->references('id')->on('images');
+            $table->foreign('image3_id')->references('id')->on('images');
             $table->index('share');
 
         });
