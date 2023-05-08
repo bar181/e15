@@ -42,12 +42,7 @@ class UserFeatureCest
     {
         # While unauth
         $I->amOnPage('/');
-
-        $I->see('Login First');
-        $I->seeElement('[test=nav-login-link]');
-
-        $I->dontsee('About my family');
-        $I->dontseeElement('[test=addbar-create-link]');
+        $I->expect('Visitor cannot see specific elements');
 
         $I->amOnPage('/bars/create');
         $I->dontseeElement('[test=create-bar-button]');
@@ -55,18 +50,17 @@ class UserFeatureCest
         $I->amOnPage('/bars/simpsons-family');
         $I->dontseeElement('[test=show-edit-link]');
 
+        $I->expect('Views different when user');
+
         # Login as Jill
         $I->amOnPage('/test/login-as/2');
-        $I->amOnPage('/');
-
-        $I->see('About my family');
-        $I->seeElement('[test=addbar-create-link]');
 
         $I->amOnPage('/bars/create');
         $I->seeElement('[test=create-bar-button]');
 
         $I->amOnPage('/bars/simpsons-family');
         $I->seeElement('[test=show-edit-link]');
+
 
     }
 

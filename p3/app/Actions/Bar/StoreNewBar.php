@@ -12,7 +12,7 @@ class StoreNewBar
     public function __construct($newBarData)
     {
 
-        # Do the action
+        # Creates a new BAR
         $bar = new Bar();
         $bar->user_id = $newBarData->user_id;
         $bar->name = $newBarData->name;
@@ -27,8 +27,7 @@ class StoreNewBar
         $bar->content3 = $newBarData->content3;
         $bar->save();
 
-        # Set up any results that might be needed from this action
-
+        # Results that might be needed from this action
         $this->results = new stdClass();
         $this->results->bar = $bar;
         $this->results->slug = $bar->slug;

@@ -20,7 +20,8 @@
             </form>
 
             <div class="mt-5">
-                <a href='/bars/' class='text-white bg-emerald-500 hover:bg-emerald-700  px-2 py-1 text-center'>No, I changed
+                <a href='/bars/' test='cancel-delete-link'
+                    class='text-white bg-emerald-500 hover:bg-emerald-700  px-2 py-1 text-center'>No, I changed
                     my mind.</a>
             </div>
         </div>

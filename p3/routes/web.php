@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/portfolios/{user_id}', [PortfolioController::class, 'show']);
 
 
-    # user is author - see readme for middleware source
+    # middleware: user is author - see readme for source
     Route::group(['middleware' => ['auth', 'auth.author']], function () {
         #  edit form
         Route::get('/bars/{slug}/edit', [BarController::class, 'edit']);
@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-# available to all: retain order - catch all last
+# available to all: retain order - catch-all last (e.g. /bars/{slug})
 
 # show a specific work
 Route::get('/bars/{slug}', [BarController::class, 'show']);

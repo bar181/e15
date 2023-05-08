@@ -16,12 +16,14 @@ class AuthorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        # Used to ensure only author is able to see their own works (no visitors or other users)
 
-        // return $next($request);
+        # see readme for source GPT prompt (remember to add to kernel)
         $slug = $request->route('slug');
         $bar = Bar::findBySlug($slug);
         $user = $request->user();
 
+        # need to add validation (not provided in source)
         if(!$slug || !$bar || !$user) {
 
             return redirect('/')->with([

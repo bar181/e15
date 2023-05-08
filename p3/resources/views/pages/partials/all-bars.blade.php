@@ -1,6 +1,6 @@
 <div class="w-full text-left bg-white shadow-md rounded px-4 pt-6 pb-8 mb-4">
     <div class='block pb-5 text-center w-full  text-2xl text-purple-700 '>Public Gallery {{ $searchDetails }}</div>
-    @include('partials.search-bars')
+    @include('pages.partials.search-bars')
     @if (count($allBars) > 0)
         <ul class="list-disc pt-5">
             @foreach ($allBars as $bar)

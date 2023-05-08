@@ -39,6 +39,44 @@ class UsersTableSeeder extends Seeder
         );
 
 
+        $user = User::updateOrCreate(
+            ['email' => 'private@harvard.edu', 'name' => 'Private Harvard'],
+            ['password' => Hash::make('asdfasdf')
+                    ]
+        );
+
+        $user = User::updateOrCreate(
+            ['email' => 'influencer@bradross.me', 'name' => 'I.M. Influencer'],
+            ['password' => Hash::make('asdfasdf')
+                   ]
+        );
+
+
+        $user = User::updateOrCreate(
+            ['email' => 'student@bradross.me', 'name' => 'Jonny Student'],
+            ['password' => Hash::make('asdfasdf')
+                            ]
+        );
+
+
+        $user = User::updateOrCreate(
+            ['email' => 'liprof@bradross.me', 'name' => 'Li Prof'],
+            ['password' => Hash::make('asdfasdf')
+                            ]
+        );
+
+
+        $user = User::updateOrCreate(
+            ['email' => 'tag@bradross.me', 'name' => 'TA Gradeson'],
+            ['password' => Hash::make('asdfasdf')
+                            ]
+        );
+
+
+
+
+
+
 
 
     }

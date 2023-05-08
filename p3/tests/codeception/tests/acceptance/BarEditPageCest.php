@@ -16,7 +16,6 @@ class BarEditPageCest
         $I->amOnPage('/test/login-as/1');
         $I->amOnPage('/bars/harvard/edit');
 
-
         # Interact with form elements
         $I->fillField('[test=name-input]', 'Business Testing');
         $I->fillField('[test=slug-input]', 'business-1');
@@ -34,8 +33,6 @@ class BarEditPageCest
         # Assert expected results
         $I->see('Topic: Business');
         $I->see('Shareable');
-
-
     }
 
      public function editForAuthorOnly(AcceptanceTester $I)

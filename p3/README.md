@@ -2,46 +2,53 @@
 + By: Bradley Ross
 + URL: <http://e15p3.bradross.me>
 
-## Feature summary
-This site formats user inputs into presentation slides - making them Brief and Readable. 
-It is a content creation site that follows best practices of a catelog application.  We call use the term BAR (Brief and Readable) to brand our style of slides.  
-Inspiration for this design is based on Instagram, the array of new GPT slide generators and my own professional/non-professional works. 
-In general, a user creates a BAR by inputing text and selecting their preferred images.
-Users can view portfolios (public items only) of other users
 
+## Feature Summary
+This site formats user inputs into presentation slides - making them Brief and Readable. 
++ It is a content creation site that follows best practices of a catalog application.  
++ Uses the term BAR (Brief and Readable) for branding the style of slides.  
++ Inspiration for this design is based on visual social media site (e.g. Instagram and blog posts), the array of new GPT slide generators, and my own professional/non-professional works. 
++ In general, a user creates a BAR by inputting text and selecting images; the output is a brief slide-style presentation of the data.
++ Users can view portfolios (public items only) of other users
+
+
+## Feature Details
 + Visitors can search and view (public) BARs
 + Visitors can register/log in to create their own BAR
 + Users can add/update BARs in their collection including setup details (BAR name, topic, shareable flag) and contents (inputs include images)
 + Users can make a BAR shareable or private 
 + Users can soft delete their own BAR
-+ Users can view a list of other users with shareable BARs
++ Users can view a list of other users (only users with shareable BARs is shown)
 + Users can view the portfolio of other users (only shareable items)
-+ Sample BARs and users are provided 
-+ use soft deletes
++ Sample BARs and users are provided as seeds
++ use soft deletes with confirmation
 + added middleware to ensure user is author for any edit/delete functionality
 + The home page features
   + Searchable public gallery
-  + Users can create, view their own works (from here users can view, edit or soft delete their works)
-  + Users can view list of other users with public works (from here they can seee the other user's public portfolio)
+  + List of user's works (links to view, edit or soft delete)
+  + links to view other portfolios and create
 + The create/edit BAR pages feature
-  + User inputs 
-  + Unique slug 
+  + Validated inputs (unique slug) 
   + List of available images to use (each uses a foreign key to images table)
   + Flag for private/public
 + The viewing page features
   + Stylized output
-  + Option for author to edit 
+  + Option for author to edit (this is hidden from other users)
+  + Private BARs are only available to the author
+
 
 ## Database summary
 + 3 tables in total (`users`, `bars`, `images`)
 + One-to-many relationship between `users` and `bars`
 + Multiple one-to-many relationship between `bars` and `images`
 
+
 ## Outside resources
 + [tailwind css - framework](https://tailwindcss.com/)
 + [midjourney - image creation](https://www.midjourney.com/app/)
 + [fontawesome icons](https://fontawesome.com)
 + [soft deletes](https://www.educative.io/answers/how-to-perform-soft-delete-in-laravel)
++ [nav CSS - hidden on small screens](https://stackoverflow.com/questions/70647076/how-to-make-element-invisible-in-mobile-size-but-visible-in-laptop-size-in-tailw)
 
 
 ## Outside support - chatGpt Prompts
@@ -54,8 +61,11 @@ Users can view portfolios (public items only) of other users
 + create a custom authentication middleware in laravel (user is author) 
 + laravel query using eloquent to groupBy share count (share is a field)
 
+
 ## Notes for instructor
 + images within this document were generated using midjourney (AI Art), prompts by Bradley Ross
++ I used GPT to help create the seeded bars, prompts by Bradley Ross
++ Some CSS added for responsive design (e.g. on home page some nav labels and button labels only show on larger devices)
 + for graduate credit
 
 
@@ -66,16 +76,17 @@ Users can view portfolios (public items only) of other users
 + Laravel auth, seeded migrations, blade syntax with inheritance
 + Specific users provided as required (e.g. Jill, Jamal)
 + No Javascript used for validations
-+ Testing via Codeception 
++ Testing via Codeception - cover all functionality (15 tests, 40 assertions)
 
 
 ## Test Results
 ```
-/var/www/e15/p3/tests/codeception# codecept run acceptance --steps
+
+root@hes:/var/www/e15/p3/tests/codeception# codecept run acceptance --steps
 Codeception PHP Testing Framework v4.2.2 https://helpukrainewin.org
 Powered by PHPUnit 8.5.28 #StandWithUkraine
 
-Acceptance Tests (11) ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Acceptance Tests (15) ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 BarCreatePageCest: Create a new bar
 Signature: BarCreatePageCest:createANewBar
 Test: tests/acceptance/BarCreatePageCest.php:createANewBar
@@ -175,6 +186,20 @@ Scenario --
  I see element "[test=error-global]"
  PASSED 
 
+DeleteFeatureCest: Delete bar for a user
+Signature: DeleteFeatureCest:deleteBarForAUser
+Test: tests/acceptance/DeleteFeatureCest.php:deleteBarForAUser
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/2"
+ I am on page "/"
+ I see element "[test=show-id-4]"
+ I click "[test=delete-button-4]"
+ I see "About my family"
+ I click "[test=confirm-delete-button]"
+ I don't see element "[test=show-id-4]"
+ PASSED 
+
 HomePageCest: Search function
 Signature: HomePageCest:searchFunction
 Test: tests/acceptance/HomePageCest.php:searchFunction
@@ -185,6 +210,58 @@ Scenario --
  I click "[test=search-button]"
  I see "Pitch for Kids Books"
  I don't see "About Animals"
+ PASSED 
+
+HomePageCest: Home page viewing differences
+Signature: HomePageCest:homePageViewingDifferences
+Test: tests/acceptance/HomePageCest.php:homePageViewingDifferences
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/"
+ I expect Visitor cannot see auth only elements
+ I see "Login First"
+ I see element "[test=nav-login-link]"
+ I don't see "View Other Portfolios"
+ I don't see element "[test=portfolios-index-link]"
+ I don't see "About my family"
+ I don't see element "[test=addbar-create-link]"
+ I expect User can see more details
+ I am on page "/test/login-as/2"
+ I am on page "/"
+ I see "About my family"
+ I see element "[test=addbar-create-link]"
+ I see "View Other Portfolios"
+ I see element "[test=portfolios-index-link]"
+ PASSED 
+
+PortfolioFeatureCest: Can see valid portfolios
+Signature: PortfolioFeatureCest:canSeeValidPortfolios
+Test: tests/acceptance/PortfolioFeatureCest.php:canSeeValidPortfolios
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/1"
+ I am on page "/portfolios"
+ I see element "[test=portfolio-2-link]"
+ I expect Cannot see users with only private portfolios
+ I don't see element "[test=portfolio-4-link]"
+ PASSED 
+
+PortfolioFeatureCest: Can see a specific portfolio
+Signature: PortfolioFeatureCest:canSeeASpecificPortfolio
+Test: tests/acceptance/PortfolioFeatureCest.php:canSeeASpecificPortfolio
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/1"
+ I am on page "/portfolios"
+ I click "[test=portfolio-2-link]"
+ I expect Cannot see other user BARs
+ I don't see element "[test=bar-1-link]"
+ I expect Private BAR is hidden
+ I don't see element "[test=bar-4-link]"
+ I expect Public BAR is available to click
+ I see element "[test=bar-3-link]"
+ I click "[test=bar-3-link]"
+ I expect About Animals
  PASSED 
 
 UserFeatureCest: User login
@@ -218,18 +295,13 @@ Test: tests/acceptance/UserFeatureCest.php:unauthAuthViewingDifferences
 Scenario --
  I am on page "/test/refresh-database"
  I am on page "/"
- I see "Login First"
- I see element "[test=nav-login-link]"
- I don't see "About my family"
- I don't see element "[test=addbar-create-link]"
+ I expect Visitor cannot see specific elements
  I am on page "/bars/create"
  I don't see element "[test=create-bar-button]"
  I am on page "/bars/simpsons-family"
  I don't see element "[test=show-edit-link]"
+ I expect Views different when user
  I am on page "/test/login-as/2"
- I am on page "/"
- I see "About my family"
- I see element "[test=addbar-create-link]"
  I am on page "/bars/create"
  I see element "[test=create-bar-button]"
  I am on page "/bars/simpsons-family"
@@ -254,7 +326,9 @@ Scenario --
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Time: 53.87 seconds, Memory: 18.66 MB
+Time: 38.83 seconds, Memory: 26.66 MB
 
-OK (11 tests, 28 assertions)
+OK (15 tests, 40 assertions)
+
+
 ```

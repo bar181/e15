@@ -4,10 +4,10 @@
         <ul class="list-disc ">
             @foreach ($bars as $bar)
                 <li class="flex justify-between border-b border-gray-400 py-3">
-                    <div>{{ $bar->name }}
+                    <div test='show-id-{{ $bar->id }}'>{{ $bar->name }}
                     </div>
                     <div>
-                        <a href='/bars/{{ $bar->slug }}'
+                        <a href='/bars/{{ $bar->slug }}' test='bar-{{ $bar->id }}-link'
                             class='text-white bg-emerald-500 hover:bg-emerald-700  px-2 py-1 text-center'>
                             <i class="fa fa-address-card pr-2"></i>View</a>
                     </div>

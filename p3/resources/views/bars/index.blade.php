@@ -16,7 +16,7 @@
     <div class="w-full h-full mx-auto mt-5 max-w-xl ">
 
         <div class="mt-5">
-            @include('partials.my-bars')
+            @include('pages.partials.my-bars')
         </div>
 
     </div>

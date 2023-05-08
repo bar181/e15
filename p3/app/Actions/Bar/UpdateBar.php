@@ -12,7 +12,7 @@ class UpdateBar
     public function __construct($bar, $newBarData)
     {
 
-        # Do the action
+        # Updates existing
         $bar->name = $newBarData->name;
         $bar->slug = $newBarData->slug;
         $bar->topic = $newBarData->topic;
@@ -26,7 +26,7 @@ class UpdateBar
 
         $bar->save();
 
-        # Set up any results that might be needed from this action
+        # Results that might be needed from this action
         $this->results = new stdClass();
         $this->results->bar = $bar;
         $this->results->slug = $bar->slug;

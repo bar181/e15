@@ -23,6 +23,7 @@ class BarController extends Controller
 
     /**
     * GET /bar/create
+    * Show new form (provide images)
     */
     public function create(Request $request)
     {
@@ -36,7 +37,6 @@ class BarController extends Controller
      /**
     * POST /bar
     * Process the form for adding a new bar
-    * AuthorMiddleware (user = author)
     * redirect to slides edit
     */
     public function store(Request $request)
@@ -118,6 +118,7 @@ class BarController extends Controller
 
     /**
     * PUT /bar/slug
+    * save edit form
     * AuthorMiddleware (user = author)
     * redirect to slides edit
     */

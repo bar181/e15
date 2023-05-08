@@ -9,19 +9,23 @@
 
         {{-- first - left --}}
         <div class="w-full h-full mx-auto max-w-lg ">
-            @include('partials.about-hero')
+            @include('pages.partials.about-hero')
         </div>
 
-        {{-- second - lg is middle --}}
+        {{-- second --}}
         <div class="w-full h-full mx-auto max-w-lg ">
-            @include('partials.portfolios-div')
-            @include('partials.create-div')
-            @include('partials.my-bars')
+            @include('pages.partials.portfolios-div')
+            @include('pages.partials.create-div')
         </div>
 
-        {{-- last - lg is right / md is bottom --}}
+        {{-- third --}}
         <div class="w-full h-full mx-auto max-w-lg ">
-            @include('partials.all-bars')
+            @include('pages.partials.my-bars')
+        </div>
+
+        {{-- last --}}
+        <div class="w-full h-full mx-auto max-w-lg ">
+            @include('pages.partials.all-bars')
         </div>
     </div>
 @endsection
