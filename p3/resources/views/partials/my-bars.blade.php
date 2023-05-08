@@ -17,6 +17,9 @@
                             <a href='/bars/{{ $bar->slug }}/edit'
                                 class='text-white bg-orange-500 hover:bg-orange-700  px-2 py-1 text-center'>
                                 <i class="fa fa-edit pr-2"></i>Edit</a>
+                            <a href='/bars/{{ $bar->slug }}/delete'
+                                class='text-white bg-red-500 hover:bg-orange-700  px-2 py-1 text-center'>
+                                <i class="fa fa-times pr-2"></i>Remove</a>
                         </div>
                     </li>
                 @endforeach

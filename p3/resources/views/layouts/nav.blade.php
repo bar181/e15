@@ -19,13 +19,15 @@
             @if (Auth::user())
                 Welcome {{ Auth::user()->name }}
 
-                <span class="px-5"> | </span>
+                <span class="px-5"> </span>
                 <a href='/' test='nav-home-link'
-                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Home </a>
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Home | </a>
+                <a href='/portfolios/' test='nav-mybars-link'
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Portfolios | </a>
                 <a href='/bars/' test='nav-mybars-link'
-                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">My Work </a>
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">My Work | </a>
                 <a href='/bars/create' test='nav-create-link'
-                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Create </a>
+                    class="inline-block text-sm px-2 py-2  text-white mt-4 lg:mt-0">Create | </a>
             @endif
         </div>
 

@@ -14,6 +14,7 @@
 
         {{-- second - lg is middle --}}
         <div class="w-full h-full mx-auto max-w-lg ">
+            @include('partials.portfolios-div')
             @include('partials.create-div')
             @include('partials.my-bars')
         </div>

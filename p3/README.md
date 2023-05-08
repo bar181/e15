@@ -7,16 +7,23 @@ This site formats user inputs into presentation slides - making them Brief and R
 It is a content creation site that follows best practices of a catelog application.  We call use the term BAR (Brief and Readable) to brand our style of slides.  
 Inspiration for this design is based on Instagram, the array of new GPT slide generators and my own professional/non-professional works. 
 In general, a user creates a BAR by inputing text and selecting their preferred images.
+Users can view portfolios (public items only) of other users
 
-+ Visitors can search and view BARs (only BARs flagged as shareable by the author are available)
++ Visitors can search and view (public) BARs
 + Visitors can register/log in to create their own BAR
-+ Users can add/update BARs in their collection - setup details (BAR name, topic, shareable flag), Contents inputs include images
-+ Users can make a BAR shareable meaning visitors and other registered users can view; alternative they can keep the BAR private 
++ Users can add/update BARs in their collection including setup details (BAR name, topic, shareable flag) and contents (inputs include images)
++ Users can make a BAR shareable or private 
++ Users can soft delete their own BAR
++ Users can view a list of other users with shareable BARs
++ Users can view the portfolio of other users (only shareable items)
 + Sample BARs and users are provided 
++ use soft deletes
++ added middleware to ensure user is author for any edit/delete functionality
 + The home page features
   + Searchable public gallery
-  + Users can create, edit or view their own works
-+ The create/edit pages feature
+  + Users can create, view their own works (from here users can view, edit or soft delete their works)
+  + Users can view list of other users with public works (from here they can seee the other user's public portfolio)
++ The create/edit BAR pages feature
   + User inputs 
   + Unique slug 
   + List of available images to use (each uses a foreign key to images table)
@@ -26,14 +33,16 @@ In general, a user creates a BAR by inputing text and selecting their preferred 
   + Option for author to edit 
 
 ## Database summary
-+ My application has 3 tables in total (`users`, `bars`, `images`)
-+ There's a one-to-many relationship between `users` and `bars`
-+ There are multiple one-to-many relationship between `bars` and `images`
++ 3 tables in total (`users`, `bars`, `images`)
++ One-to-many relationship between `users` and `bars`
++ Multiple one-to-many relationship between `bars` and `images`
 
 ## Outside resources
 + [tailwind css - framework](https://tailwindcss.com/)
 + [midjourney - image creation](https://www.midjourney.com/app/)
 + [fontawesome icons](https://fontawesome.com)
++ [soft deletes](https://www.educative.io/answers/how-to-perform-soft-delete-in-laravel)
+
 
 ## Outside support - chatGpt Prompts
 + how to merge user with form validation before passing to class constructor (references BarController/store)
@@ -43,17 +52,20 @@ In general, a user creates a BAR by inputing text and selecting their preferred 
 + default value for a drop down menu - priority is old, then saved value
 + format date using carbon (show only date not time stamp)
 + create a custom authentication middleware in laravel (user is author) 
++ laravel query using eloquent to groupBy share count (share is a field)
 
 ## Notes for instructor
 + images within this document were generated using midjourney (AI Art), prompts by Bradley Ross
++ for graduate credit
 
 
 ## requirements checklist
-+ CRUD operations: 3 (text, text area, radio, checkbox)
++ CRUD operations: 4 (create, read, update, soft delete)
 + Database relationships: user-bar, bar-image
-+ New features: custom middleware, public viewing option, author only viewing option, multi-field search, image selection, slide display
++ Unique features: custom middleware, public viewing option, author only viewing option, image selection, slide-style presentation, soft delete, view other users with shareable items, view portfolio of other users
 + Laravel auth, seeded migrations, blade syntax with inheritance
-+ No Javascript used
++ Specific users provided as required (e.g. Jill, Jamal)
++ No Javascript used for validations
 + Testing via Codeception 
 
 

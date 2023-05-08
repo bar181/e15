@@ -1,7 +1,7 @@
 @extends('layouts/main')
 
 @section('title')
-    My BARs
+    Portfolios
 @endsection
 
 
@@ -16,7 +16,7 @@
     <div class="w-full h-full mx-auto mt-5 max-w-xl ">
 
         <div class="mt-5">
-            @include('partials.my-bars')
+            @include('portfolios/partials/users-table')
         </div>
 
     </div>

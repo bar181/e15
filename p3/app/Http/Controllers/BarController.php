@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use App\Models\Bar;
 use App\Models\Image;
 use App\Actions\Bar\StoreNewBar;
 use App\Actions\Bar\UpdateBar;
-
-// use Illuminate\Support\Facades\Mail;
-// use App\Mail\AddNewBookMail;
 
 class BarController extends Controller
 {
@@ -146,6 +142,38 @@ class BarController extends Controller
         $redirectUrl = '/bars/' . $action->results->slug;
 
         return redirect($redirectUrl)->with(['flash-alert' => 'Your changes were saved']);
+    }
+
+
+     /**
+    *  GET /bar/slug/delete
+    * Asks to confirm delete
+    */
+    public function delete($slug)
+    {
+        $bar = Bar::findBySlug($slug);
+
+        if (!$bar) {
+            return redirect('/bars')->with([
+                'flash-alert' => 'Bar not found'
+            ]);
+        }
+
+        return view('bars/delete', ['bar' => $bar]);
+    }
+
+    /**
+    * DELETE /bar/{slug}/delete
+    * Soft delete
+    */
+    public function destroy($slug)
+    {
+        $bar = Bar::findBySlug($slug);
+        $bar->delete();
+
+        return redirect('/bars')->with([
+            'flash-alert' => '“' . $bar->name . '” was removed.'
+        ]);
     }
 
 }

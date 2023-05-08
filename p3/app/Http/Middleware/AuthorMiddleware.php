@@ -22,6 +22,14 @@ class AuthorMiddleware
         $bar = Bar::findBySlug($slug);
         $user = $request->user();
 
+        if(!$slug || !$bar || !$user) {
+
+            return redirect('/')->with([
+                        'flash-alert' => 'Page not found.'
+                    ]);
+
+        }
+
         if ($user->id != $bar->user_id) {
             abort(403, 'Unauthorized action.');
         }

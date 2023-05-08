@@ -13,6 +13,7 @@ return new class () extends Migration {
         Schema::create('bars', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->bigInteger('user_id')->unsigned();
             $table->string('name');
